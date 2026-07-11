@@ -1,0 +1,9 @@
+export { PrismaAdminUserRepository } from "./admin-user.repository";
+export { PrismaAdminAuthRepository } from "./admin-auth.repository";
+export { PrismaAdminRequestRepository } from "./admin-request.repository";
+export { PrismaAdminContentRepository } from "./admin-content.repository";
+export { PrismaPublicContentRepository } from "./public-content.repository";
+export { PrismaBlogPostRepository } from "./blog-post.repository";
+export { PrismaLeadRequestRepository } from "./lead-request.repository";
+export { PrismaPortfolioRepository } from "./portfolio.repository";
+export { PrismaServiceRepository } from "./service.repository";
