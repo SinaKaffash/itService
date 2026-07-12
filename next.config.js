@@ -1,28 +1,42 @@
 const createNextIntlPlugin = require("next-intl/plugin");
+const os = require("node:os");
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
+function getLocalDevOrigins() {
+  const origins = new Set(["192.168.43.16"]);
+
+  for (const interfaces of Object.values(os.networkInterfaces())) {
+    for (const network of interfaces ?? []) {
+      if (network.family === "IPv4" && !network.internal) {
+        origins.add(network.address);
+      }
+    }
+  }
+
+  for (const origin of process.env.ALLOWED_DEV_ORIGINS?.split(",") ?? []) {
+    const value = origin.trim();
+    if (!value) {
+      continue;
+    }
+
+    try {
+      origins.add(new URL(value).hostname);
+    } catch {
+      origins.add(value.replace(/^https?:\/\//, "").replace(/:\d+$/, ""));
+    }
+  }
+
+  return [...origins];
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  allowedDevOrigins: [
-    "192.168.43.16",
-    ...(process.env.ALLOWED_DEV_ORIGINS?.split(",")
-      .map((origin) => origin.trim())
-      .filter(Boolean) ?? []),
-  ],
+  allowedDevOrigins: getLocalDevOrigins(),
   compress: true,
   output: "standalone",
   poweredByHeader: false,
   reactStrictMode: true,
-  experimental: {
-    optimizePackageImports: [
-      "lucide-react",
-      "@radix-ui/react-label",
-      "@radix-ui/react-select",
-      "@radix-ui/react-separator",
-      "@radix-ui/react-slot",
-    ],
-  },
   async redirects() {
     return [
       {

@@ -19,7 +19,6 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 import { LocaleSwitcher } from "./locale-switcher";
-import { ThemeSwitcher } from "./theme-switcher";
 import { Button } from "@/components/ui/button";
 
 type MobileNavProps = {
@@ -37,12 +36,6 @@ type MobileNavProps = {
     shortLabel: string;
   };
   menuLabel: string;
-  themeLabels: {
-    dark: string;
-    label: string;
-    light: string;
-    system: string;
-  };
   title: string;
 };
 
@@ -75,7 +68,6 @@ export function MobileNav({
   locale,
   localeSwitcherLabels,
   menuLabel,
-  themeLabels,
   title,
 }: MobileNavProps) {
   const [open, setOpen] = useState(false);
@@ -236,12 +228,6 @@ export function MobileNav({
                   locale={locale}
                   side="top"
                 />
-              </div>
-              <div className="flex items-center justify-between gap-3 rounded-lg border bg-muted/40 px-3 py-2">
-                <span className="text-xs font-medium text-muted-foreground">
-                  {themeLabels.label}
-                </span>
-                <ThemeSwitcher labels={themeLabels} />
               </div>
             </div>
           </div>

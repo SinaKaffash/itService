@@ -6,14 +6,12 @@ import { CTAButton } from "./cta-button";
 import { Container } from "./container";
 import { LocaleSwitcher } from "./locale-switcher";
 import { MobileNav } from "./mobile-nav";
-import { ThemeSwitcher } from "./theme-switcher";
 
 export async function Header() {
-  const [locale, t, localeT, themeT] = await Promise.all([
+  const [locale, t, localeT] = await Promise.all([
     getLocale(),
     getTranslations("Navigation"),
     getTranslations("LocaleSwitcher"),
-    getTranslations("ThemeSwitcher"),
   ]);
   const items = [
     { href: "/about", label: t("about") },
@@ -52,16 +50,6 @@ export async function Header() {
 
         <div className="flex items-center gap-1.5">
           <div className="hidden lg:block">
-            <ThemeSwitcher
-              labels={{
-                dark: themeT("dark"),
-                label: themeT("label"),
-                light: themeT("light"),
-                system: themeT("system"),
-              }}
-            />
-          </div>
-          <div className="hidden lg:block">
             <LocaleSwitcher
               labels={{
                 english: localeT("english"),
@@ -92,12 +80,6 @@ export async function Header() {
               shortLabel: localeT("shortLabel"),
             }}
             menuLabel={t("menu")}
-            themeLabels={{
-              dark: themeT("dark"),
-              label: themeT("label"),
-              light: themeT("light"),
-              system: themeT("system"),
-            }}
             title={t("menuTitle")}
           />
         </div>

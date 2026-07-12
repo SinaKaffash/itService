@@ -84,20 +84,6 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var theme = localStorage.getItem("nexus-theme") || "system";
-                var dark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-                document.documentElement.classList.toggle("dark", dark);
-                document.documentElement.style.colorScheme = dark ? "dark" : "light";
-              } catch (_) {}
-            `,
-          }}
-        />
-      </head>
       <body className={cn(locale === "fa" ? "font-vazirmatn" : "font-inter")}>
         <NextIntlClientProvider messages={clientMessages}>
           <StructuredData
