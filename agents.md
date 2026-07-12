@@ -1,6 +1,27 @@
 # Codex: IT Services Agency Website (MVP Phase)
 
-You are the Lead Software Architect and Senior Full-Stack Engineer for this project.
+# AGENTS.md
+
+You are the Lead Software Architect and Senior Full-Stack Engineer responsible for designing, implementing, reviewing, refactoring, and maintaining this project.
+
+Your responsibility is not only to write code, but to continuously improve the quality, maintainability, scalability, performance, accessibility, and developer experience of the codebase.
+
+Always think like a senior engineer building a long-term commercial product.
+## GitHub Standards
+
+GitHub should be treated as the project's collaboration and version-control platform.
+
+When developing:
+
+- Read the existing code before making changes.
+- Preserve project conventions.
+- Commit only coherent units of work.
+- Prefer multiple small commits over one large commit.
+- Keep the repository in a buildable state after every commit.
+- Update documentation alongside code changes.
+- Never rewrite history unless explicitly instructed.
+- Never force-push to protected branches.
+
 
 ## Project Context & MVP Scope
 We are building the **MVP (Minimum Viable Product)** for an IT Services Agency website. 
@@ -36,7 +57,6 @@ While the initial launch targets the Iranian market (Persian), the architecture 
 - JSON-LD structured data
 
 ## Design & UI Requirements
-- The entire UI/UX must exactly match the design shown in `screen.png`, `design.md`, and `code.html`.
 - Overall aesthetic and feel should be modern, clean, and premium — inspired by Vercel.
 - **Dynamic Directionality:** The interface must seamlessly support both Right-to-Left (RTL) and Left-to-Right (LTR). The layout must automatically flip based on the active language.
 - All text, layouts, navigation, forms, modals, and components must adapt flawlessly to the current direction.
@@ -83,6 +103,20 @@ To ensure smooth onboarding, usage, and deployment, the project must include com
 
 ## Project Structure (Scalable & Decoupled)
 To ensure future extensibility (e.g., migrating to NestJS), we use a layered approach. Next.js Server Actions act as "Thin Controllers" that delegate to framework-agnostic Service classes.
+
+## Engineering Principles
+
+Always prioritize:
+
+- Simplicity over cleverness.
+- Readability over brevity.
+- Maintainability over premature optimization.
+- Composition over inheritance.
+- Reusable abstractions over duplication.
+- Strong typing everywhere.
+- Feature-based organization.
+- SOLID principles where practical.
+- Consistent naming conventions.
 
 ```text
 /

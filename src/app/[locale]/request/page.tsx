@@ -1,10 +1,11 @@
-import { CheckCircle2 } from "lucide-react";
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { SmartRequestForm } from "@/components/forms/smart-request-form";
 import { Container } from "@/components/layout/container";
 import { PageHero } from "@/components/sections/page-hero";
+import { FormSidePanel } from "@/components/sections/public-design";
 import { createLocalizedMetadata, type SeoLocale } from "@/lib/seo";
 import { pickClientMessages } from "@/messages/client";
 
@@ -48,41 +49,19 @@ export default async function RequestPage({
         eyebrow={t("eyebrow")}
         title={t("title")}
       />
-      <section className="py-20 sm:py-28">
+      <section className="section-rhythm">
         <Container className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
-          <div>
-            <h2 className="text-2xl font-bold">{t("expectTitle")}</h2>
-            <div className="mt-7 space-y-6">
-              {(["discovery", "scope", "response"] as const).map(
-                (item, index) => (
-                  <div className="flex gap-4" key={item}>
-                    <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                      {index + 1}
-                    </div>
-                    <div>
-                      <h3 className="font-bold">
-                        {t(`steps.${item}.title`)}
-                      </h3>
-                      <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                        {t(`steps.${item}.description`)}
-                      </p>
-                    </div>
-                  </div>
-                ),
-              )}
-            </div>
-            <div className="mt-10 rounded-xl border bg-muted/40 p-6">
-              <CheckCircle2
-                aria-hidden="true"
-                className="size-6 text-secondary"
-              />
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">
-                {t("assurance")}
-              </p>
-            </div>
-          </div>
-          <div className="rounded-xl border bg-white p-6 sm:p-8">
-            <h2 className="text-2xl font-bold">{t("formTitle")}</h2>
+          <FormSidePanel
+            assurance={t("assurance")}
+            description={t("description")}
+            items={(["discovery", "scope", "response"] as const).map((item) => ({
+              description: t(`steps.${item}.description`),
+              title: t(`steps.${item}.title`),
+            }))}
+            title={t("expectTitle")}
+          />
+          <div className="surface-panel rounded-2xl p-6 sm:p-8">
+            <h2 className="text-2xl font-black">{t("formTitle")}</h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
               {t("formDescription")}
             </p>
@@ -97,4 +76,3 @@ export default async function RequestPage({
     </main>
   );
 }
-import type { Metadata } from "next";

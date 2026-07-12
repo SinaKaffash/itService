@@ -4,6 +4,12 @@ const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  allowedDevOrigins: [
+    "192.168.43.16",
+    ...(process.env.ALLOWED_DEV_ORIGINS?.split(",")
+      .map((origin) => origin.trim())
+      .filter(Boolean) ?? []),
+  ],
   compress: true,
   output: "standalone",
   poweredByHeader: false,
@@ -16,6 +22,15 @@ const nextConfig = {
       "@radix-ui/react-separator",
       "@radix-ui/react-slot",
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/favicon.ico",
+        destination: "/favicon.svg",
+        permanent: true,
+      },
+    ];
   },
   async headers() {
     if (process.env.NODE_ENV !== "production") {

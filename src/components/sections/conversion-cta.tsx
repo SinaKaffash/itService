@@ -7,20 +7,24 @@ export async function ConversionCTA() {
   const t = await getTranslations("Common.cta");
 
   return (
-    <section className="py-20 sm:py-28">
+    <section className="section-rhythm">
       <Container>
-        <div className="relative isolate overflow-hidden rounded-2xl bg-foreground px-6 py-14 text-center text-background sm:px-12 sm:py-20">
+        <div className="ink-panel relative isolate overflow-hidden rounded-2xl px-6 py-12 text-center sm:px-12 sm:py-16 lg:px-16">
           <div
             aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/0.32),transparent_50%)]"
+            className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_22%_0%,hsl(var(--primary)/0.44),transparent_34%),linear-gradient(to_bottom,hsl(var(--foreground)),hsl(var(--foreground)))]"
           />
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-10 bg-grid opacity-10"
+          />
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
             {t("eyebrow")}
           </p>
-          <h2 className="mx-auto mt-4 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+          <h2 className="mx-auto mt-4 max-w-3xl text-balance text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl">
             {t("title")}
           </h2>
-          <p className="mx-auto mt-5 max-w-xl leading-7 text-background/65">
+          <p className="mx-auto mt-5 max-w-xl text-pretty leading-7 text-background/70">
             {t("description")}
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">

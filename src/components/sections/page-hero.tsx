@@ -8,6 +8,8 @@ type PageHeroProps = {
   description: string;
   children?: React.ReactNode;
   compact?: boolean;
+  meta?: React.ReactNode;
+  align?: "start" | "center";
 };
 
 export function PageHero({
@@ -16,36 +18,56 @@ export function PageHero({
   description,
   children,
   compact = false,
+  meta,
+  align = "start",
 }: PageHeroProps) {
   return (
-    <section className="relative isolate overflow-hidden border-b">
+    <section className="relative isolate overflow-hidden border-b bg-surface/45">
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 h-full bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/0.12),transparent_55%)]"
+        className="absolute inset-0 -z-10 bg-grid opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_82%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 -z-10 h-full bg-[radial-gradient(circle_at_22%_0%,hsl(var(--primary)/0.14),transparent_34%),radial-gradient(circle_at_80%_18%,hsl(var(--foreground)/0.08),transparent_26rem)]"
       />
       <Container
         className={cn(
-          "flex flex-col items-center text-center",
-          compact ? "py-20 sm:py-24" : "py-24 sm:py-32",
+          "grid gap-8",
+          compact ? "py-14 sm:py-20" : "py-20 sm:py-28 lg:py-32",
         )}
       >
-        <Badge
-          className="border-primary/20 bg-primary/5 text-primary hover:bg-primary/5"
-          variant="outline"
-        >
-          {eyebrow}
-        </Badge>
-        <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-[1.2] tracking-tight sm:text-5xl lg:text-6xl">
-          {title}
-        </h1>
-        <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-          {description}
-        </p>
-        {children ? (
-          <div className="mt-9 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
-            {children}
-          </div>
-        ) : null}
+        <div className={cn("max-w-4xl", align === "center" && "mx-auto text-center")}>
+          <Badge
+            className="rounded-full border-primary/25 bg-primary/10 px-3 py-1 text-primary hover:bg-primary/10"
+            variant="outline"
+          >
+            {eyebrow}
+          </Badge>
+          <h1 className={cn(
+            "mt-6 max-w-4xl text-balance text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl",
+            align === "center" && "mx-auto",
+          )}>
+            {title}
+          </h1>
+          <p className={cn(
+            "mt-6 max-w-2xl text-pretty text-base leading-8 text-muted-foreground sm:text-lg",
+            align === "center" && "mx-auto",
+          )}>
+            {description}
+          </p>
+          {meta ? <div className="mt-5">{meta}</div> : null}
+          {children ? (
+            <div
+              className={cn(
+                "mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row",
+                align === "center" ? "justify-center" : "justify-start",
+              )}
+            >
+              {children}
+            </div>
+          ) : null}
+        </div>
       </Container>
     </section>
   );

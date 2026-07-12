@@ -61,12 +61,12 @@ export function SmartRequestForm() {
   if (completed) {
     return (
       <div
-        className="flex min-h-80 flex-col items-center justify-center rounded-xl border bg-emerald-50/60 p-8 text-center"
+        className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-success/25 bg-success/10 p-8 text-center"
         role="status"
       >
         <CheckCircle2
           aria-hidden="true"
-          className="size-10 text-emerald-600"
+          className="size-10 text-success"
         />
         <h2 className="mt-5 text-2xl font-bold">{t("successTitle")}</h2>
         <p className="mt-3 max-w-md leading-7 text-muted-foreground">
@@ -78,7 +78,7 @@ export function SmartRequestForm() {
 
   return (
     <form
-      className="grid gap-5"
+      className="grid gap-6"
       noValidate
       onSubmit={handleSubmit(async (values) => {
         setSubmitError(null);
@@ -114,6 +114,7 @@ export function SmartRequestForm() {
         />
       </div>
 
+      <div className="rounded-2xl border bg-background/55 p-4 sm:p-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="request-full-name">{t("fullName")}</Label>
@@ -183,7 +184,9 @@ export function SmartRequestForm() {
           ) : null}
         </div>
       </div>
+      </div>
 
+      <div className="rounded-2xl border bg-background/55 p-4 sm:p-5">
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor="request-service">{t("service")}</Label>
@@ -254,7 +257,9 @@ export function SmartRequestForm() {
           ) : null}
         </div>
       </div>
+      </div>
 
+      <div className="rounded-2xl border bg-background/55 p-4 sm:p-5">
       <div className="space-y-2">
         <Label htmlFor="request-description">{t("description")}</Label>
         <Textarea
@@ -269,6 +274,7 @@ export function SmartRequestForm() {
             {validationMessage(errors.description.message)}
           </p>
         ) : null}
+      </div>
       </div>
 
       {submitError ? (

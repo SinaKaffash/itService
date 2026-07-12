@@ -51,6 +51,12 @@
     "persian": "فارسی",
     "english": "English"
   },
+  "ThemeSwitcher": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "Home": {
     "eyebrow": "Precision-engineered digital systems",
     "title": "Architecting the digital future of your business",
@@ -82,6 +88,18 @@
       "operational": "Operational",
       "uptime": "Platform availability",
       "response": "Average response"
+    },
+    "visual": {
+      "proofOne": "Senior people from the first conversation",
+      "proofTwo": "Practical plans before heavy builds",
+      "proofThree": "Launch support with operational care",
+      "panelTitle": "Delivery workspace",
+      "live": "live",
+      "discovery": "Discovery",
+      "build": "Build",
+      "launch": "Launch",
+      "map": "System map",
+      "note": "Every project starts with the user journey, the risk model, and the first useful release."
     }
   },
   "Footer": {

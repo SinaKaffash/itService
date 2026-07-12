@@ -32,11 +32,14 @@ export async function Footer() {
   ];
 
   return (
-    <footer className="border-t bg-muted/50">
-      <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="border-t bg-surface/70">
+      <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
-          <Link className="text-xl font-bold tracking-tight" href="/">
-            {t("brand")}<span className="text-primary">.</span>
+          <Link className="inline-flex items-center gap-2 text-xl font-bold tracking-tight" href="/">
+            <span className="flex size-9 items-center justify-center rounded-lg bg-foreground text-sm font-black text-background">
+              N
+            </span>
+            {t("brand")}
           </Link>
           <p className="mt-4 max-w-md text-sm leading-7 text-muted-foreground">
             {t("description")}
@@ -44,7 +47,7 @@ export async function Footer() {
         </div>
         {columns.map((column) => (
           <div key={column.title}>
-            <h2 className="text-sm font-semibold">{column.title}</h2>
+            <h2 className="text-sm font-bold">{column.title}</h2>
             <ul className="mt-4 space-y-3">
               {column.links.map((link) => (
                 <li key={`${column.title}-${link.label}`}>

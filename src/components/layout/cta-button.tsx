@@ -24,7 +24,7 @@ export function CTAButton({
     <Button
       asChild
       className={cn(
-        variant === "default" && "cyan-glow font-semibold",
+        variant === "default" && "font-semibold",
         className,
       )}
       size={size}

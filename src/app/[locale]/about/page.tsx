@@ -1,9 +1,10 @@
+import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { Container } from "@/components/layout/container";
 import { ConversionCTA } from "@/components/sections/conversion-cta";
 import { PageHero } from "@/components/sections/page-hero";
+import { FeaturePanel, SectionShell } from "@/components/sections/public-design";
 import { SectionHeader } from "@/components/sections/section-header";
 import { createLocalizedMetadata, type SeoLocale } from "@/lib/seo";
 
@@ -42,8 +43,7 @@ export default async function AboutPage({
         eyebrow={t("eyebrow")}
         title={t("title")}
       />
-      <section className="py-20 sm:py-28">
-        <Container className="grid gap-12 lg:grid-cols-2 lg:items-center">
+      <SectionShell containerClassName="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <SectionHeader
               description={t("storyDescription")}
@@ -57,7 +57,7 @@ export default async function AboutPage({
           <div className="grid grid-cols-2 gap-4">
             {(["projects", "uptime", "disciplines", "support"] as const).map(
               (stat) => (
-                <div className="rounded-xl border bg-muted/35 p-6" key={stat}>
+                <div className="rounded-2xl border bg-card/80 p-6 shadow-[0_1px_0_hsl(var(--foreground)/0.04)]" key={stat}>
                   <p className="text-3xl font-bold text-primary">
                     {t(`stats.${stat}.value`)}
                   </p>
@@ -68,10 +68,8 @@ export default async function AboutPage({
               ),
             )}
           </div>
-        </Container>
-      </section>
-      <section className="border-y bg-muted/45 py-20">
-        <Container>
+      </SectionShell>
+      <SectionShell tone="muted">
           <SectionHeader
             align="center"
             description={t("valuesDescription")}
@@ -79,7 +77,7 @@ export default async function AboutPage({
           />
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {(["clarity", "craft", "ownership"] as const).map((value) => (
-              <div className="rounded-xl border bg-white p-6" key={value}>
+              <FeaturePanel key={value}>
                 <CheckCircle2
                   aria-hidden="true"
                   className="size-6 text-primary"
@@ -90,13 +88,11 @@ export default async function AboutPage({
                 <p className="mt-3 text-sm leading-7 text-muted-foreground">
                   {t(`values.${value}.description`)}
                 </p>
-              </div>
+              </FeaturePanel>
             ))}
           </div>
-        </Container>
-      </section>
+      </SectionShell>
       <ConversionCTA />
     </main>
   );
 }
-import type { Metadata } from "next";

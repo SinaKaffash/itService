@@ -19,6 +19,7 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 import { LocaleSwitcher } from "./locale-switcher";
+import { ThemeSwitcher } from "./theme-switcher";
 import { Button } from "@/components/ui/button";
 
 type MobileNavProps = {
@@ -36,6 +37,12 @@ type MobileNavProps = {
     shortLabel: string;
   };
   menuLabel: string;
+  themeLabels: {
+    dark: string;
+    label: string;
+    light: string;
+    system: string;
+  };
   title: string;
 };
 
@@ -68,6 +75,7 @@ export function MobileNav({
   locale,
   localeSwitcherLabels,
   menuLabel,
+  themeLabels,
   title,
 }: MobileNavProps) {
   const [open, setOpen] = useState(false);
@@ -121,7 +129,7 @@ export function MobileNav({
           <div
             aria-modal="true"
             className={cn(
-              "fixed top-0 z-50 flex h-dvh w-[min(23.5rem,calc(100vw-1rem))] flex-col overflow-y-auto bg-background shadow-2xl ring-1 ring-black/10",
+              "fixed top-0 z-50 flex h-dvh w-[min(23.5rem,calc(100vw-1rem))] flex-col overflow-y-auto bg-background shadow-2xl ring-1 ring-border/70",
               isRtl
                 ? "right-0 rounded-l-2xl"
                 : "left-0 rounded-r-2xl",
@@ -129,15 +137,17 @@ export function MobileNav({
             dir={isRtl ? "rtl" : "ltr"}
             role="dialog"
           >
-            <div className="border-b bg-muted/45 px-5 py-4 sm:px-6">
+            <div className="border-b bg-surface/70 px-5 py-4 sm:px-6">
               <div className="flex items-center justify-between gap-4">
                 <Link
                   className="min-w-0 text-base font-bold tracking-tight"
                   href="/"
                   onClick={() => setOpen(false)}
                 >
+                  <span className="me-2 inline-flex size-7 items-center justify-center rounded-lg bg-foreground text-xs text-background">
+                    N
+                  </span>
                   <span className="truncate">{brandLabel}</span>
-                  <span className="text-primary">.</span>
                 </Link>
                 <Button
                   aria-label={closeLabel}
@@ -184,7 +194,7 @@ export function MobileNav({
                     >
                       <span
                         className={cn(
-                          "flex size-9 shrink-0 items-center justify-center rounded-md border bg-background text-primary transition-colors",
+                          "flex size-9 shrink-0 items-center justify-center rounded-lg border bg-background text-primary transition-colors",
                           isActive && "border-primary/20 bg-primary text-primary-foreground",
                         )}
                       >
@@ -208,7 +218,7 @@ export function MobileNav({
               </nav>
             </div>
 
-            <div className="mt-auto space-y-4 border-t bg-white px-5 py-5 sm:px-6">
+            <div className="mt-auto space-y-4 border-t bg-surface/55 px-5 py-5 sm:px-6">
               {ctaHref && ctaLabel ? (
                 <Button asChild className="w-full">
                   <Link href={ctaHref} onClick={() => setOpen(false)}>
@@ -226,6 +236,12 @@ export function MobileNav({
                   locale={locale}
                   side="top"
                 />
+              </div>
+              <div className="flex items-center justify-between gap-3 rounded-lg border bg-muted/40 px-3 py-2">
+                <span className="text-xs font-medium text-muted-foreground">
+                  {themeLabels.label}
+                </span>
+                <ThemeSwitcher labels={themeLabels} />
               </div>
             </div>
           </div>

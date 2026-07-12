@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Clock3, Mail, MapPin, Phone } from "lucide-react";
 import { NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -5,6 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LeadForm } from "@/components/forms/lead-form";
 import { Container } from "@/components/layout/container";
 import { PageHero } from "@/components/sections/page-hero";
+import { ConversationCard } from "@/components/sections/public-design";
 import { createLocalizedMetadata, type SeoLocale } from "@/lib/seo";
 import { pickClientMessages } from "@/messages/client";
 
@@ -51,19 +53,19 @@ export default async function ContactPage({
         eyebrow={t("eyebrow")}
         title={t("title")}
       />
-      <section className="py-20 sm:py-28">
+      <section className="section-rhythm">
         <Container className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
           <div>
-            <h2 className="text-2xl font-bold">{t("detailsTitle")}</h2>
-            <p className="mt-4 leading-7 text-muted-foreground">
-              {t("detailsDescription")}
-            </p>
+            <ConversationCard
+              description={t("detailsDescription")}
+              title={t("detailsTitle")}
+            />
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
               {items.map((item, index) => {
                 const Icon = contactIcons[index];
                 return (
-                  <div className="flex gap-4 rounded-xl border p-5" key={item}>
-                    <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
+                  <div className="human-panel flex gap-4 rounded-2xl p-5" key={item}>
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent text-primary">
                       <Icon aria-hidden="true" className="size-5" />
                     </div>
                     <div>
@@ -82,8 +84,8 @@ export default async function ContactPage({
               })}
             </div>
           </div>
-          <div className="rounded-xl border bg-white p-6 sm:p-8">
-            <h2 className="text-2xl font-bold">{t("formTitle")}</h2>
+          <div className="surface-panel rounded-2xl p-6 sm:p-8">
+            <h2 className="text-2xl font-black">{t("formTitle")}</h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
               {t("formDescription")}
             </p>
@@ -98,4 +100,3 @@ export default async function ContactPage({
     </main>
   );
 }
-import type { Metadata } from "next";

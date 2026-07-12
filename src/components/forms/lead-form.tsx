@@ -61,12 +61,12 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
   if (submitted) {
     return (
       <div
-        className="flex min-h-80 flex-col items-center justify-center rounded-xl border bg-emerald-50/60 p-8 text-center"
+        className="flex min-h-80 flex-col items-center justify-center rounded-2xl border border-success/25 bg-success/10 p-8 text-center"
         role="status"
       >
         <CheckCircle2
           aria-hidden="true"
-          className="size-10 text-emerald-600"
+          className="size-10 text-success"
         />
         <h2 className="mt-5 text-2xl font-bold">{t("successTitle")}</h2>
         <p className="mt-3 max-w-md leading-7 text-muted-foreground">
@@ -78,7 +78,7 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
 
   return (
     <form
-      className="grid gap-5"
+      className="grid gap-6"
       noValidate
       onSubmit={handleSubmit(async (values) => {
         setSubmitError(null);
@@ -116,8 +116,9 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
         />
       </div>
 
+      <div className="rounded-2xl border bg-background/55 p-4 sm:p-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label htmlFor={`${mode}-name`}>{t("fullName")}</Label>
           <Input
             autoComplete="name"
@@ -127,12 +128,12 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
             {...register("fullName")}
           />
           {errors.fullName ? (
-            <p className="text-xs text-destructive">
+            <p className="text-xs font-medium text-destructive">
               {validationMessage(errors.fullName.message)}
             </p>
           ) : null}
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label htmlFor={`${mode}-phone`}>{t("phone")}</Label>
           <Input
             autoComplete="tel"
@@ -144,7 +145,7 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
             {...register("phone")}
           />
           {errors.phone ? (
-            <p className="text-xs text-destructive">
+            <p className="text-xs font-medium text-destructive">
               {validationMessage(errors.phone.message)}
             </p>
           ) : null}
@@ -152,7 +153,7 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label htmlFor={`${mode}-email`}>{t("emailOptional")}</Label>
           <Input
             autoComplete="email"
@@ -164,12 +165,12 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
             {...register("email")}
           />
           {errors.email ? (
-            <p className="text-xs text-destructive">
+            <p className="text-xs font-medium text-destructive">
               {validationMessage(errors.email.message)}
             </p>
           ) : null}
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           <Label htmlFor={`${mode}-company`}>{t("companyOptional")}</Label>
           <Input
             autoComplete="organization"
@@ -179,16 +180,18 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
             {...register("company")}
           />
           {errors.company ? (
-            <p className="text-xs text-destructive">
+            <p className="text-xs font-medium text-destructive">
               {validationMessage(errors.company.message)}
             </p>
           ) : null}
         </div>
       </div>
+      </div>
 
       {mode === "request" ? (
+        <div className="rounded-2xl border bg-background/55 p-4 sm:p-5">
         <div className="grid gap-5 sm:grid-cols-2">
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             <Label htmlFor="request-service">{t("service")}</Label>
             <Controller
               control={control}
@@ -219,12 +222,12 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
               )}
             />
             {errors.serviceType ? (
-              <p className="text-xs text-destructive">
+              <p className="text-xs font-medium text-destructive">
                 {validationMessage(errors.serviceType.message)}
               </p>
             ) : null}
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             <Label htmlFor="request-budget">{t("budget")}</Label>
             <Controller
               control={control}
@@ -255,15 +258,17 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
               )}
             />
             {errors.budget ? (
-              <p className="text-xs text-destructive">
+              <p className="text-xs font-medium text-destructive">
                 {validationMessage(errors.budget.message)}
               </p>
             ) : null}
           </div>
         </div>
+        </div>
       ) : null}
 
-      <div className="space-y-2">
+      <div className="rounded-2xl border bg-background/55 p-4 sm:p-5">
+      <div className="space-y-2.5">
         <Label htmlFor={`${mode}-message`}>{t("message")}</Label>
         <Textarea
           aria-invalid={Boolean(errors.description)}
@@ -277,10 +282,11 @@ export function LeadForm({ mode }: { mode: "contact" | "request" }) {
           {...register("description")}
         />
         {errors.description ? (
-          <p className="text-xs text-destructive">
+          <p className="text-xs font-medium text-destructive">
             {validationMessage(errors.description.message)}
           </p>
         ) : null}
+      </div>
       </div>
 
       {submitError ? (
