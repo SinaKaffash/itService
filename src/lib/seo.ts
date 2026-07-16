@@ -21,6 +21,7 @@ export function createLocalizedMetadata({
   siteName,
   type = "website",
   publishedTime,
+  image,
 }: {
   locale: SeoLocale;
   path?: string;
@@ -29,9 +30,15 @@ export function createLocalizedMetadata({
   siteName: string;
   type?: "website" | "article";
   publishedTime?: string;
+  image?: string;
 }): Metadata {
   const canonical = localizedUrl(locale, path);
   const alternatePath = path ? `/${path.replace(/^\/+/, "")}` : "";
+  const imageUrl = image
+    ? image.startsWith("https://")
+      ? image
+      : `${getSiteUrl()}${image}`
+    : undefined;
 
   return {
     metadataBase: new URL(getSiteUrl()),
@@ -53,12 +60,14 @@ export function createLocalizedMetadata({
       url: canonical,
       locale: locale === "fa" ? "fa_IR" : "en_US",
       alternateLocale: locale === "fa" ? ["en_US"] : ["fa_IR"],
+      ...(imageUrl ? { images: [{ url: imageUrl, alt: title }] } : {}),
       ...(type === "article" && publishedTime ? { publishedTime } : {}),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      ...(imageUrl ? { images: [imageUrl] } : {}),
     },
   };
 }

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Container } from "@/components/layout/container";
+import { ContentImage } from "@/components/sections/content-image";
 import { ConversionCTA } from "@/components/sections/conversion-cta";
 import { PageHero } from "@/components/sections/page-hero";
 import { StructuredData } from "@/components/seo/structured-data";
@@ -43,6 +44,7 @@ export async function generateMetadata({
     siteName: seo("siteName"),
     type: "article",
     publishedTime: post.publishedAt,
+    image: post.coverImage,
   });
 }
 
@@ -107,6 +109,15 @@ export default async function BlogDetailPage({
       </PageHero>
       <article className="py-20 sm:py-28">
         <Container className="max-w-3xl">
+          <div className="-mt-8 mb-12 overflow-hidden rounded-2xl border bg-surface shadow-[var(--shadow-soft)]">
+            <div className="aspect-[16/9]">
+              <ContentImage
+                alt={post.title}
+                fallback="/images/marketing/web-platform.svg"
+                image={post.coverImage}
+              />
+            </div>
+          </div>
           <div className="space-y-7">
             {(paragraphs.length > 0
               ? paragraphs

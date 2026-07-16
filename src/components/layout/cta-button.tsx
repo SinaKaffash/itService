@@ -33,7 +33,7 @@ export function CTAButton({
       <Link {...props}>
         {children}
         {showArrow ? (
-          <ArrowUpLeft aria-hidden="true" className="size-4 rtl:-scale-x-100" />
+          <ArrowUpLeft aria-hidden="true" className="size-5 rtl:-scale-x-100" />
         ) : null}
       </Link>
     </Button>

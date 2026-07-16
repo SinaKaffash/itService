@@ -44,6 +44,21 @@ function portfolioTheme(index: number): PublicPortfolio["theme"] {
   return (["cyan", "violet", "emerald"] as const)[index % 3];
 }
 
+function imageUrl(value?: string | null) {
+  return value?.trim() ?? "";
+}
+
+function galleryUrls(value: unknown) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value
+    .filter((item): item is string => typeof item === "string")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 export class PublicContentService {
   constructor(private readonly repository: PublicContentRepository) {}
 
@@ -87,6 +102,8 @@ export class PublicContentService {
         description: value.description,
         content: value.content,
         category: value.category,
+        coverImage: imageUrl(row.coverImage),
+        gallery: galleryUrls(row.gallery),
         technologies: row.technologies ?? [],
         theme: portfolioTheme(index),
       };
@@ -104,6 +121,8 @@ export class PublicContentService {
       description: value.description,
       content: value.content,
       category: value.category,
+      coverImage: imageUrl(row.coverImage),
+      gallery: galleryUrls(row.gallery),
       technologies: row.technologies ?? [],
       theme: portfolioTheme(0),
     } satisfies PublicPortfolio;
@@ -133,6 +152,7 @@ export class PublicContentService {
       description: value.description,
       content,
       category: value.category,
+      coverImage: imageUrl(row.coverImage),
       publishedAt: (row.publishedAt ?? new Date(0)).toISOString(),
       readTime: Math.max(1, Math.ceil(wordCount / 200)),
     };

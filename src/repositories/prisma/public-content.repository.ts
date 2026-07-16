@@ -39,6 +39,8 @@ export class PrismaPublicContentRepository
         id: true,
         slug: true,
         translations: true,
+        coverImage: true,
+        gallery: true,
         technologies: true,
       },
       orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
@@ -52,6 +54,8 @@ export class PrismaPublicContentRepository
         id: true,
         slug: true,
         translations: true,
+        coverImage: true,
+        gallery: true,
         technologies: true,
       },
     });
@@ -64,6 +68,7 @@ export class PrismaPublicContentRepository
         id: true,
         slug: true,
         translations: true,
+        coverImage: true,
         publishedAt: true,
       },
       orderBy: { publishedAt: "desc" },
@@ -77,6 +82,7 @@ export class PrismaPublicContentRepository
         id: true,
         slug: true,
         translations: true,
+        coverImage: true,
         publishedAt: true,
       },
     });

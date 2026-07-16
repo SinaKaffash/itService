@@ -27,10 +27,7 @@ export function PageHero({
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-grid opacity-40 [mask-image:linear-gradient(to_bottom,black,transparent_82%)]"
       />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 h-full bg-[radial-gradient(circle_at_22%_0%,hsl(var(--primary)/0.14),transparent_34%),radial-gradient(circle_at_80%_18%,hsl(var(--foreground)/0.08),transparent_26rem)]"
-      />
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 -z-10 h-full bg-surface/55" />
       <Container
         className={cn(
           "grid gap-8",

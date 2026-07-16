@@ -66,6 +66,8 @@ export function ContentEditorForm({
       contentFa: record?.translations.fa.content ?? "",
       contentEn: record?.translations.en.content ?? "",
       icon: record?.icon ?? "",
+      coverImage: record?.coverImage ?? "",
+      gallery: record?.gallery.join(", ") ?? "",
       technologies: record?.technologies.join(", ") ?? "",
       sortOrder: record?.sortOrder ?? 0,
       published: record?.published ?? false,
@@ -81,6 +83,8 @@ export function ContentEditorForm({
           ? t("validation.slug")
           : errors[name]?.message === "content"
             ? t("validation.content")
+            : errors[name]?.message === "imageUrl"
+              ? t("validation.imageUrl")
             : t("validation.required")}
       </p>
     ) : null;
@@ -242,6 +246,36 @@ export function ContentEditorForm({
               <p className="text-xs text-muted-foreground">
                 {t("technologiesHint")}
               </p>
+            </div>
+          ) : null}
+          {entity !== "service" ? (
+            <div className="space-y-2">
+              <Label htmlFor="content-cover-image">{t("coverImage")}</Label>
+              <Input
+                dir="ltr"
+                id="content-cover-image"
+                placeholder="/images/marketing/workspace-dashboard.svg"
+                {...register("coverImage")}
+              />
+              <p className="text-xs text-muted-foreground">
+                {t("coverImageHint")}
+              </p>
+              {fieldError("coverImage")}
+            </div>
+          ) : null}
+          {entity === "portfolio" ? (
+            <div className="space-y-2 sm:col-span-2">
+              <Label htmlFor="content-gallery">{t("gallery")}</Label>
+              <Input
+                dir="ltr"
+                id="content-gallery"
+                placeholder="/images/marketing/workspace-dashboard.svg, /images/marketing/cloud-operations.svg"
+                {...register("gallery")}
+              />
+              <p className="text-xs text-muted-foreground">
+                {t("galleryHint")}
+              </p>
+              {fieldError("gallery")}
             </div>
           ) : null}
           {entity !== "blog" ? (

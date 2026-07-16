@@ -18,6 +18,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Container } from "@/components/layout/container";
 import { CTAButton } from "@/components/layout/cta-button";
+import { ContentImage } from "@/components/sections/content-image";
 import {
   CaseStudyCard,
   InsightCard,
@@ -100,10 +101,7 @@ export default async function HomePage({ params }: HomePageProps) {
           aria-hidden="true"
           className="absolute inset-0 -z-10 bg-grid opacity-45 [mask-image:linear-gradient(to_bottom,black,transparent_82%)]"
         />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_6%,hsl(var(--primary)/0.18),transparent_31rem),radial-gradient(circle_at_86%_12%,hsl(var(--foreground)/0.08),transparent_26rem)]"
-        />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-surface/45" />
         <Container className="grid min-h-[calc(100vh-4rem)] gap-12 py-14 sm:py-20 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-24">
           <div className="max-w-3xl">
             <Badge
@@ -133,7 +131,9 @@ export default async function HomePage({ params }: HomePageProps) {
                   const Icon = proofIcons[index];
                   return (
                     <div className="rounded-2xl border bg-card/80 p-4 shadow-[0_1px_0_hsl(var(--foreground)/0.04)]" key={item}>
-                      <Icon aria-hidden="true" className="mb-3 size-5 text-primary" />
+                      <div className="mb-3 flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <Icon aria-hidden="true" className="size-6" />
+                      </div>
                       <p className="text-sm font-bold leading-6">{item}</p>
                     </div>
                   );
@@ -266,6 +266,7 @@ export default async function HomePage({ params }: HomePageProps) {
                 <InsightCard
                   action={blogT("readArticle")}
                   category={post.category || blogT("fallbackCategory")}
+                  coverImage={post.coverImage}
                   excerpt={post.description}
                   key={post.slug}
                   meta={blogT("meta", {
@@ -320,68 +321,79 @@ function HeroStudioVisual({
 }) {
   return (
     <div className="relative mx-auto w-full max-w-2xl">
-      <div aria-hidden="true" className="absolute -inset-8 rounded-full bg-primary/10 blur-3xl" />
-      <div className="surface-panel relative overflow-hidden rounded-xl p-3 sm:p-4">
-        <div aria-hidden="true" className="absolute inset-0 bg-dot-grid opacity-20" />
-        <div className="relative rounded-lg border bg-background/90 p-4 shadow-2xl sm:p-5">
-          <div className="flex items-center justify-between gap-4 border-b pb-4">
-            <div className="flex min-w-0 items-center gap-2">
-              <span className="size-2 rounded-full bg-success" />
-              <span className="truncate text-xs font-bold text-muted-foreground">
-                {panelTitle}
+      <div className="surface-panel relative overflow-hidden rounded-2xl p-3 sm:p-4">
+        <div className="relative overflow-hidden rounded-xl border bg-background/90 shadow-2xl">
+          <div className="aspect-[16/10]">
+            <ContentImage
+              alt=""
+              fallback="/images/marketing/workspace-dashboard.svg"
+              image="/images/marketing/workspace-dashboard.svg"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/55 via-foreground/5 to-transparent" />
+          <div className="absolute inset-x-4 bottom-4 rounded-xl border border-white/15 bg-background/90 p-4 shadow-2xl backdrop-blur-md sm:inset-x-5 sm:bottom-5 sm:p-5">
+            <div className="flex items-center justify-between gap-4 border-b pb-4">
+              <div className="flex min-w-0 items-center gap-2">
+                <span className="size-2 rounded-full bg-success" />
+                <span className="truncate text-xs font-bold text-muted-foreground">
+                  {panelTitle}
+                </span>
+              </div>
+              <span
+                className="rounded-full bg-success/10 px-2.5 py-1 font-mono text-[0.68rem] font-semibold text-success"
+                dir="ltr"
+              >
+                {liveLabel}
               </span>
             </div>
-            <span className="rounded-full bg-success/10 px-2.5 py-1 font-mono text-[0.68rem] font-semibold text-success" dir="ltr">
-              {liveLabel}
-            </span>
-          </div>
-          <div className="grid gap-4 pt-4 lg:grid-cols-[0.92fr_1.08fr]">
-            <div className="space-y-3">
-              {[
-                [discoveryLabel, "84%"],
-                [buildLabel, "62%"],
-                [launchLabel, "41%"],
-              ].map(([label, width]) => (
-                <div className="rounded-lg border bg-surface/65 p-3" key={label}>
-                  <div className="mb-2 flex items-center justify-between gap-3 text-xs">
-                    <span className="font-bold">{label}</span>
-                    <span className="font-mono text-muted-foreground" dir="ltr">
-                      {width}
-                    </span>
-                  </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-muted">
-                    <div className="h-full rounded-full bg-primary" style={{ width }} />
-                  </div>
-                </div>
-              ))}
-              <div className="rounded-lg border border-primary/20 bg-primary/10 p-3">
-                <div className="flex items-start gap-3">
-                  <MessageSquareText aria-hidden="true" className="mt-0.5 size-4 text-primary" />
-                  <p className="text-xs font-semibold leading-5 text-primary">
-                    {noteLabel}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="rounded-xl border bg-foreground p-4 text-background">
-              <div className="mb-4 flex items-center gap-2">
-                <CircuitBoard aria-hidden="true" className="size-5 text-primary" />
-                <span className="text-sm font-black">{mapLabel}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                {[Layers3, Globe2, ServerCog, CheckCircle2].map((Icon, index) => (
-                  <div className="rounded-lg border border-background/10 bg-background/10 p-3" key={index}>
-                    <Icon aria-hidden="true" className="mb-4 size-5 text-primary" />
-                    <div className="h-1.5 w-16 rounded-full bg-background/25" />
+            <div className="grid gap-4 pt-4 lg:grid-cols-[0.92fr_1.08fr]">
+              <div className="space-y-3">
+                {[
+                  [discoveryLabel, "84%"],
+                  [buildLabel, "62%"],
+                  [launchLabel, "41%"],
+                ].map(([label, width]) => (
+                  <div className="rounded-lg border bg-surface/65 p-3" key={label}>
+                    <div className="mb-2 flex items-center justify-between gap-3 text-xs">
+                      <span className="font-bold">{label}</span>
+                      <span className="font-mono text-muted-foreground" dir="ltr">
+                        {width}
+                      </span>
+                    </div>
+                    <div className="h-1.5 overflow-hidden rounded-full bg-muted">
+                      <div className="h-full rounded-full bg-primary" style={{ width }} />
+                    </div>
                   </div>
                 ))}
+                <div className="rounded-lg border border-primary/20 bg-primary/10 p-3">
+                  <div className="flex items-start gap-3">
+                    <MessageSquareText aria-hidden="true" className="mt-0.5 size-5 text-primary" />
+                    <p className="text-xs font-semibold leading-5 text-primary">
+                      {noteLabel}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="rounded-xl border bg-foreground p-4 text-background">
+                <div className="mb-4 flex items-center gap-2">
+                  <CircuitBoard aria-hidden="true" className="size-6 text-primary" />
+                  <span className="text-sm font-black">{mapLabel}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {[Layers3, Globe2, ServerCog, CheckCircle2].map((Icon, index) => (
+                    <div className="rounded-lg border border-background/10 bg-background/10 p-3" key={index}>
+                      <Icon aria-hidden="true" className="mb-4 size-6 text-primary" />
+                      <div className="h-1.5 w-16 rounded-full bg-background/25" />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div className="quiet-panel absolute -bottom-5 hidden max-w-[16rem] rounded-xl p-4 shadow-[var(--shadow-soft)] md:block ltr:-left-6 rtl:-right-6">
-        <Sparkles aria-hidden="true" className="mb-3 size-5 text-primary" />
+        <Sparkles aria-hidden="true" className="mb-3 size-6 text-primary" />
         <p className="text-sm font-bold leading-6">{noteLabel}</p>
       </div>
     </div>
@@ -400,8 +412,16 @@ function ReliabilityVisual({
   uptime: string;
 }) {
   return (
-    <div className="surface-panel relative overflow-hidden rounded-xl p-6">
-      <div aria-hidden="true" className="absolute inset-0 bg-grid opacity-25" />
+    <div className="surface-panel relative overflow-hidden rounded-2xl">
+      <div className="aspect-[16/10]">
+        <ContentImage
+          alt=""
+          fallback="/images/marketing/cloud-operations.svg"
+          image="/images/marketing/cloud-operations.svg"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-foreground/65 via-foreground/10 to-transparent" />
+      <div className="absolute inset-x-5 bottom-5 rounded-xl border border-white/15 bg-background/90 p-5 shadow-2xl backdrop-blur-md">
       <div className="relative flex items-center justify-between border-b pb-5">
         <span className="text-sm font-black">{status}</span>
         <Badge className="border-success/25 bg-success/10 text-success hover:bg-success/10" variant="outline">
@@ -411,6 +431,7 @@ function ReliabilityVisual({
       <div className="relative mt-6 grid gap-4 sm:grid-cols-2">
         <Metric icon={Gauge} label={uptime} value="99.99%" />
         <Metric icon={ShieldCheck} label={response} value="<25ms" />
+      </div>
       </div>
     </div>
   );
@@ -427,7 +448,7 @@ function Metric({
 }) {
   return (
     <div className="rounded-xl border bg-background/70 p-4">
-      <Icon aria-hidden="true" className="mb-3 size-5 text-primary" />
+      <Icon aria-hidden="true" className="mb-3 size-6 text-primary" />
       <p className="text-2xl font-black" dir="ltr">
         {value}
       </p>

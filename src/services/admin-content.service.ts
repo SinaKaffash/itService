@@ -84,6 +84,11 @@ export class AdminContentService {
         },
       },
       icon: input.icon,
+      coverImage: input.coverImage,
+      gallery: input.gallery
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean),
       technologies: input.technologies
         .split(",")
         .map((item) => item.trim())

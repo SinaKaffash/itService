@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
+import { ContentImage } from "@/components/sections/content-image";
 import { Badge } from "@/components/ui/badge";
 import type {
   PublicPortfolio,
@@ -85,7 +86,9 @@ export function TrustMetric({
 }) {
   return (
     <div className="rounded-2xl border bg-card/75 p-5 shadow-[0_1px_0_hsl(var(--foreground)/0.04)]">
-      <Icon aria-hidden="true" className="mb-5 size-5 text-primary" />
+      <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <Icon aria-hidden="true" className="size-6" />
+      </div>
       <p className="text-2xl font-black tracking-tight" dir="ltr">
         {value}
       </p>
@@ -136,6 +139,13 @@ const serviceIcons = {
   dashboard: BarChart3,
 } satisfies Record<ServiceIcon, typeof Globe2>;
 
+const serviceVisuals = {
+  globe: "/images/marketing/web-platform.svg",
+  mobile: "/images/marketing/mobile-product.svg",
+  server: "/images/marketing/cloud-operations.svg",
+  dashboard: "/images/marketing/workspace-dashboard.svg",
+} satisfies Record<ServiceIcon, string>;
+
 export function ServicePreviewCard({
   slug,
   icon,
@@ -152,6 +162,7 @@ export function ServicePreviewCard({
   index: number;
 }) {
   const Icon = serviceIcons[icon];
+  const visual = serviceVisuals[icon];
   const signals = ["Discovery", "Build", "Scale"];
 
   return (
@@ -160,10 +171,14 @@ export function ServicePreviewCard({
       href={`/services/${slug}`}
     >
       <article className="human-panel flex h-full flex-col overflow-hidden rounded-2xl">
+        <div className="relative aspect-[16/8.5] overflow-hidden border-b bg-surface">
+          <ContentImage alt="" fallback={visual} image={visual} />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/35 via-transparent to-transparent" />
+        </div>
         <div className="p-6 sm:p-7">
           <div className="flex items-start justify-between gap-5">
-            <div className="flex size-12 items-center justify-center rounded-2xl border bg-accent/70 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-              <Icon aria-hidden="true" className="size-5" />
+            <div className="flex size-14 items-center justify-center rounded-2xl border bg-accent/80 text-primary shadow-sm transition-colors group-hover:bg-primary group-hover:text-primary-foreground sm:size-16">
+              <Icon aria-hidden="true" className="size-7" />
             </div>
             <span className="font-mono text-xs text-muted-foreground" dir="ltr">
               0{index + 1}
@@ -189,7 +204,7 @@ export function ServicePreviewCard({
             {action}
             <MoveUpLeft
               aria-hidden="true"
-              className="size-4 transition-transform group-hover:-translate-y-0.5 rtl-flip"
+              className="size-5 transition-transform group-hover:-translate-y-0.5 rtl-flip"
             />
           </span>
         </div>
@@ -198,10 +213,10 @@ export function ServicePreviewCard({
   );
 }
 
-const portfolioThemes: Record<PublicPortfolio["theme"], string> = {
-  cyan: "from-cyan-400/28 via-slate-950 to-zinc-950",
-  violet: "from-violet-500/32 via-slate-950 to-zinc-950",
-  emerald: "from-emerald-400/28 via-slate-950 to-zinc-950",
+const portfolioFallbacks: Record<PublicPortfolio["theme"], string> = {
+  cyan: "/images/marketing/workspace-dashboard.svg",
+  violet: "/images/marketing/web-platform.svg",
+  emerald: "/images/marketing/cloud-operations.svg",
 };
 
 export function CaseStudyCard({
@@ -230,35 +245,15 @@ export function CaseStudyCard({
           featured && "lg:grid-cols-[1.1fr_0.9fr]",
         )}
       >
-        <div
-          className={cn(
-            "relative min-h-64 overflow-hidden bg-gradient-to-br p-5",
-            portfolioThemes[item.theme],
-          )}
-        >
-          <div aria-hidden="true" className="absolute inset-0 bg-dot-grid opacity-18" />
-          <div className="relative h-full rounded-xl border border-white/10 bg-white/[0.06] p-4 shadow-2xl backdrop-blur-sm">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <div className="flex gap-1.5">
-                <span className="size-1.5 rounded-full bg-white/40" />
-                <span className="size-1.5 rounded-full bg-white/25" />
-                <span className="size-1.5 rounded-full bg-white/15" />
-              </div>
-              <span className="rounded-full bg-white/10 px-2 py-1 font-mono text-[0.62rem] text-white/70">
-                LIVE
-              </span>
-            </div>
-            <div className="grid h-[calc(100%-2.25rem)] gap-3 pt-4">
-              <div className="grid grid-cols-[0.75fr_1.25fr] gap-3">
-                <div className="rounded-lg bg-white/10" />
-                <div className="rounded-lg bg-primary/30" />
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="rounded-lg bg-white/10" />
-                <div className="rounded-lg bg-white/10" />
-                <div className="rounded-lg bg-white/10" />
-              </div>
-            </div>
+        <div className="relative min-h-72 overflow-hidden bg-surface">
+          <ContentImage
+            alt={title}
+            fallback={portfolioFallbacks[item.theme]}
+            image={item.coverImage}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/45 via-transparent to-transparent opacity-80" />
+          <div className="absolute bottom-5 start-5 rounded-full border border-white/20 bg-white/15 px-3 py-1 text-xs font-bold text-white shadow-lg backdrop-blur-md">
+            {category}
           </div>
         </div>
         <div className="flex flex-col p-6 sm:p-7">
@@ -280,7 +275,7 @@ export function CaseStudyCard({
           </div>
           <span className="mt-8 inline-flex items-center gap-2 text-sm font-bold text-primary">
             {action}
-            <ArrowUpLeft aria-hidden="true" className="size-4 rtl-flip" />
+            <ArrowUpLeft aria-hidden="true" className="size-5 rtl-flip" />
           </span>
         </div>
       </article>
@@ -295,6 +290,7 @@ export function InsightCard({
   excerpt,
   meta,
   action,
+  coverImage,
 }: {
   slug: string;
   category: string;
@@ -302,20 +298,32 @@ export function InsightCard({
   excerpt: string;
   meta: string;
   action: string;
+  coverImage?: string;
 }) {
   return (
     <Link
       className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       href={`/blog/${slug}`}
     >
-      <article className="human-panel flex h-full flex-col rounded-2xl p-6 sm:p-7">
+      <article className="human-panel flex h-full flex-col overflow-hidden rounded-2xl">
+        <div className="relative aspect-[16/9] overflow-hidden border-b bg-surface">
+          <ContentImage
+            alt={title}
+            fallback="/images/marketing/web-platform.svg"
+            image={coverImage}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 via-transparent to-transparent" />
+        </div>
+        <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div className="mb-8 flex items-start justify-between gap-4">
           <Badge variant="outline">{category}</Badge>
           <span className="max-w-32 text-end text-xs leading-5 text-muted-foreground">
             {meta}
           </span>
         </div>
-        <LineChart aria-hidden="true" className="mb-5 size-5 text-primary" />
+        <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <LineChart aria-hidden="true" className="size-6" />
+        </div>
         <h2 className="text-balance text-xl font-black leading-8">{title}</h2>
         <p className="mt-3 flex-1 text-pretty text-sm leading-7 text-muted-foreground">
           {excerpt}
@@ -324,9 +332,10 @@ export function InsightCard({
           {action}
           <ArrowUpLeft
             aria-hidden="true"
-            className="size-4 transition-transform group-hover:-translate-y-0.5 rtl-flip"
+            className="size-5 transition-transform group-hover:-translate-y-0.5 rtl-flip"
           />
         </span>
+        </div>
       </article>
     </Link>
   );
@@ -375,7 +384,7 @@ export function FormSidePanel({
       </div>
       {assurance ? (
         <div className="mt-8 rounded-2xl border bg-card/75 p-5">
-          <CheckCircle2 aria-hidden="true" className="size-5 text-success" />
+          <CheckCircle2 aria-hidden="true" className="size-6 text-success" />
           <p className="mt-4 text-sm leading-7 text-muted-foreground">
             {assurance}
           </p>
@@ -395,8 +404,8 @@ export function ConversationCard({
   return (
     <FeaturePanel>
       <div className="flex items-start gap-4">
-        <div className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-          <MessageSquareText aria-hidden="true" className="size-5" />
+        <div className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
+          <MessageSquareText aria-hidden="true" className="size-7" />
         </div>
         <div>
           <h2 className="text-2xl font-black tracking-tight">{title}</h2>

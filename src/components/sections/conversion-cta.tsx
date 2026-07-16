@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 
 import { Container } from "@/components/layout/container";
 import { CTAButton } from "@/components/layout/cta-button";
+import { ContentImage } from "@/components/sections/content-image";
 
 export async function ConversionCTA() {
   const t = await getTranslations("Common.cta");
@@ -10,10 +11,14 @@ export async function ConversionCTA() {
     <section className="section-rhythm">
       <Container>
         <div className="ink-panel relative isolate overflow-hidden rounded-2xl px-6 py-12 text-center sm:px-12 sm:py-16 lg:px-16">
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_22%_0%,hsl(var(--primary)/0.44),transparent_34%),linear-gradient(to_bottom,hsl(var(--foreground)),hsl(var(--foreground)))]"
-          />
+          <div className="absolute inset-0 -z-10 opacity-20">
+            <ContentImage
+              alt=""
+              fallback="/images/marketing/cloud-operations.svg"
+              image="/images/marketing/cloud-operations.svg"
+            />
+          </div>
+          <div aria-hidden="true" className="absolute inset-0 -z-10 bg-foreground/85" />
           <div
             aria-hidden="true"
             className="absolute inset-0 -z-10 bg-grid opacity-10"

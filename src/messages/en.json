@@ -621,6 +621,10 @@
       "contentEn": "English article body",
       "contentFa": "Persian article body",
       "icon": "Icon identifier",
+      "coverImage": "Cover image URL",
+      "coverImageHint": "Use a local /images/... path or an https:// image URL.",
+      "gallery": "Gallery image URLs",
+      "galleryHint": "Separate image URLs with commas. Local /images/... paths work best.",
       "technologies": "Technologies",
       "technologiesHint": "Separate technologies with commas.",
       "sortOrder": "Display order",
@@ -632,6 +636,7 @@
       "validation": {
         "required": "Complete this required field.",
         "slug": "Enter a valid slug using letters, numbers, and hyphens.",
+        "imageUrl": "Use a local /images/... path or an https:// image URL.",
         "content": "Both article bodies must contain at least 20 characters."
       },
       "errors": {

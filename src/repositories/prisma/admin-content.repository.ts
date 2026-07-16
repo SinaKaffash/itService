@@ -96,6 +96,8 @@ export class PrismaAdminContentRepository
         data: {
           slug: data.slug,
           translations: data.translations,
+          coverImage: data.coverImage || null,
+          gallery: data.gallery,
           technologies: data.technologies,
           sortOrder: data.sortOrder,
           published: data.published,
@@ -108,6 +110,7 @@ export class PrismaAdminContentRepository
       data: {
         slug: data.slug,
         translations: data.translations,
+        coverImage: data.coverImage || null,
         published: data.published,
         publishedAt: data.published ? new Date() : null,
         isActive: data.isActive,
@@ -137,6 +140,8 @@ export class PrismaAdminContentRepository
         data: {
           slug: data.slug,
           translations: data.translations,
+          coverImage: data.coverImage || null,
+          gallery: data.gallery,
           technologies: data.technologies,
           sortOrder: data.sortOrder,
           published: data.published,
@@ -155,6 +160,7 @@ export class PrismaAdminContentRepository
       data: {
         slug: data.slug,
         translations: data.translations,
+        coverImage: data.coverImage || null,
         published: data.published,
         publishedAt: data.published
           ? current.publishedAt ?? new Date()
@@ -187,6 +193,8 @@ export class PrismaAdminContentRepository
       isActive: row.isActive,
       sortOrder: row.sortOrder,
       icon: row.icon ?? "",
+      coverImage: "",
+      gallery: [],
       technologies: [],
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,
@@ -205,6 +213,10 @@ export class PrismaAdminContentRepository
       isActive: row.isActive,
       sortOrder: row.sortOrder,
       icon: "",
+      coverImage: row.coverImage ?? "",
+      gallery: Array.isArray(row.gallery)
+        ? row.gallery.filter((item): item is string => typeof item === "string")
+        : [],
       technologies: row.technologies,
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,
@@ -223,6 +235,8 @@ export class PrismaAdminContentRepository
       isActive: row.isActive,
       sortOrder: 0,
       icon: "",
+      coverImage: row.coverImage ?? "",
+      gallery: [],
       technologies: [],
       createdAt: row.createdAt,
       updatedAt: row.updatedAt,

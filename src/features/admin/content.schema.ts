@@ -3,6 +3,34 @@ import { z } from "zod";
 import { contentEntityTypes } from "@/core/admin-content";
 
 const text = z.string().trim().min(2, { message: "required" }).max(5000);
+const imageUrl = z
+  .string()
+  .trim()
+  .max(500)
+  .refine(
+    (value) =>
+      !value ||
+      value.startsWith("/images/") ||
+      value.startsWith("https://"),
+    { message: "imageUrl" },
+  );
+const imageUrlList = z
+  .string()
+  .trim()
+  .max(3000)
+  .refine(
+    (value) =>
+      !value ||
+      value
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean)
+        .every(
+          (item) =>
+            item.startsWith("/images/") || item.startsWith("https://"),
+        ),
+    { message: "imageUrl" },
+  );
 
 export const adminContentSchema = z
   .object({
@@ -25,6 +53,8 @@ export const adminContentSchema = z
     contentFa: z.string().trim().max(20000),
     contentEn: z.string().trim().max(20000),
     icon: z.string().trim().max(80),
+    coverImage: imageUrl,
+    gallery: imageUrlList,
     technologies: z.string().trim().max(1000),
     sortOrder: z.coerce.number().int().min(0).max(10000),
     published: z.boolean(),

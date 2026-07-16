@@ -18,7 +18,7 @@
     "prod:save": "pm2 save",
     "clean:next": "node -e \"require('fs').rmSync('.next', { recursive: true, force: true })\"",
     "lint": "eslint .",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc --noEmit --incremental false",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:seed": "prisma db seed",

@@ -20,6 +20,8 @@ export type AdminContentRecord = {
   isActive: boolean;
   sortOrder: number;
   icon: string;
+  coverImage: string;
+  gallery: string[];
   technologies: string[];
   createdAt: Date;
   updatedAt: Date;

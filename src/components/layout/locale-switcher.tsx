@@ -43,7 +43,7 @@ export function LocaleSwitcher({
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={labels.label}
-        className="gap-1.5"
+        className="gap-2 rounded-xl"
         onClick={() => setOpen((value) => !value)}
         size="sm"
         type="button"

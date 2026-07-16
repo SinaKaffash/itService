@@ -6,6 +6,8 @@ export type PublicContentRow = {
   id: string;
   slug: string;
   translations: unknown;
+  coverImage?: string | null;
+  gallery?: unknown;
   publishedAt?: Date | null;
   icon?: string | null;
   technologies?: string[];
@@ -27,6 +29,8 @@ export type PublicPortfolio = {
   description: string;
   content: string;
   category: string;
+  coverImage: string;
+  gallery: string[];
   technologies: string[];
   theme: "cyan" | "violet" | "emerald";
 };
@@ -38,6 +42,7 @@ export type PublicBlogPost = {
   description: string;
   content: string;
   category: string;
+  coverImage: string;
   publishedAt: string;
   readTime: number;
 };

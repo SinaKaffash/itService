@@ -102,7 +102,7 @@ export function MobileNav({
       <Button
         aria-expanded={open}
         aria-label={menuLabel}
-        className={mobileOnlyClassName}
+        className={cn(mobileOnlyClassName, "rounded-xl")}
         onClick={() => setOpen(true)}
         size="icon"
         type="button"
@@ -136,7 +136,7 @@ export function MobileNav({
                   href="/"
                   onClick={() => setOpen(false)}
                 >
-                  <span className="me-2 inline-flex size-7 items-center justify-center rounded-lg bg-foreground text-xs text-background">
+                  <span className="me-2 inline-flex size-10 items-center justify-center rounded-xl bg-foreground text-sm text-background">
                     N
                   </span>
                   <span className="truncate">{brandLabel}</span>
@@ -175,7 +175,7 @@ export function MobileNav({
                     <Link
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
-                        "group flex min-h-12 items-center gap-3 rounded-lg px-3 py-2.5 text-start text-sm font-semibold leading-6 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
+                        "group flex min-h-14 items-center gap-3 rounded-xl px-3.5 py-3 text-start text-sm font-semibold leading-6 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
                         isActive
                           ? "bg-accent text-accent-foreground"
                           : "text-foreground hover:bg-muted",
@@ -186,11 +186,11 @@ export function MobileNav({
                     >
                       <span
                         className={cn(
-                          "flex size-9 shrink-0 items-center justify-center rounded-lg border bg-background text-primary transition-colors",
+                          "flex size-11 shrink-0 items-center justify-center rounded-xl border bg-background text-primary transition-colors",
                           isActive && "border-primary/20 bg-primary text-primary-foreground",
                         )}
                       >
-                        <Icon aria-hidden="true" className="size-4" />
+                        <Icon aria-hidden="true" className="size-6" />
                       </span>
                       <span className="min-w-0 flex-1 break-words">
                         {item.label}
@@ -198,7 +198,7 @@ export function MobileNav({
                       <ArrowRight
                         aria-hidden="true"
                         className={cn(
-                          "size-4 shrink-0 text-muted-foreground transition-transform",
+                          "size-5 shrink-0 text-muted-foreground transition-transform",
                           isRtl
                             ? "rotate-180 group-hover:-translate-x-0.5"
                             : "group-hover:translate-x-0.5",

@@ -118,6 +118,12 @@ const services = [
 const portfolio = [
   {
     slug: "aura-fintech",
+    coverImage: "/images/marketing/workspace-dashboard.svg",
+    gallery: [
+      "/images/marketing/web-platform.svg",
+      "/images/marketing/cloud-operations.svg",
+      "/images/marketing/mobile-product.svg",
+    ],
     technologies: ["Next.js", "Node.js", "PostgreSQL"],
     sortOrder: 1,
     translations: {
@@ -135,6 +141,12 @@ const portfolio = [
   },
   {
     slug: "vertex-cloud",
+    coverImage: "/images/marketing/cloud-operations.svg",
+    gallery: [
+      "/images/marketing/cloud-operations.svg",
+      "/images/marketing/workspace-dashboard.svg",
+      "/images/marketing/web-platform.svg",
+    ],
     technologies: ["Kubernetes", "AWS", "Terraform"],
     sortOrder: 2,
     translations: {
@@ -152,6 +164,12 @@ const portfolio = [
   },
   {
     slug: "astral-mobile",
+    coverImage: "/images/marketing/mobile-product.svg",
+    gallery: [
+      "/images/marketing/mobile-product.svg",
+      "/images/marketing/team-studio.svg",
+      "/images/marketing/workspace-dashboard.svg",
+    ],
     technologies: ["React Native", "TypeScript", "GraphQL"],
     sortOrder: 3,
     translations: {
@@ -172,6 +190,7 @@ const portfolio = [
 const blogPosts = [
   {
     slug: "scalable-modular-architecture",
+    coverImage: "/images/marketing/web-platform.svg",
     publishedAt: new Date("2026-06-18T09:00:00.000Z"),
     translations: {
       en: {
@@ -188,6 +207,7 @@ const blogPosts = [
   },
   {
     slug: "web-performance-that-converts",
+    coverImage: "/images/marketing/workspace-dashboard.svg",
     publishedAt: new Date("2026-05-27T09:00:00.000Z"),
     translations: {
       en: {
@@ -204,6 +224,7 @@ const blogPosts = [
   },
   {
     slug: "security-by-design",
+    coverImage: "/images/marketing/cloud-operations.svg",
     publishedAt: new Date("2026-05-04T09:00:00.000Z"),
     translations: {
       en: {

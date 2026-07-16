@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Container } from "@/components/layout/container";
+import { ContentImage } from "@/components/sections/content-image";
 import { ConversionCTA } from "@/components/sections/conversion-cta";
 import { PageHero } from "@/components/sections/page-hero";
 import { Badge } from "@/components/ui/badge";
@@ -36,6 +37,7 @@ export async function generateMetadata({
     title: item.title,
     description: item.description,
     siteName: seo("siteName"),
+    image: item.coverImage,
   });
 }
 
@@ -65,11 +67,33 @@ export default async function PortfolioDetailPage({
       />
       <section className="py-20 sm:py-28">
         <Container>
-          <div className="rounded-2xl border bg-slate-950 p-6 sm:p-10">
-            <div className="aspect-[16/7] rounded-xl border border-white/10 bg-[radial-gradient(circle_at_50%_30%,hsl(var(--primary)/0.35),transparent_45%),linear-gradient(to_bottom_right,#111827,#020617)] p-6">
-              <div className="h-full rounded-lg border border-white/10 bg-white/[0.04] backdrop-blur" />
+          <div className="overflow-hidden rounded-2xl border bg-card shadow-[var(--shadow-soft)]">
+            <div className="aspect-[16/8]">
+              <ContentImage
+                alt={item.title}
+                fallback="/images/marketing/workspace-dashboard.svg"
+                image={item.coverImage}
+              />
             </div>
           </div>
+          {item.gallery.length > 0 ? (
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {item.gallery.slice(0, 3).map((image, index) => (
+                <div
+                  className="overflow-hidden rounded-xl border bg-surface shadow-sm"
+                  key={`${item.slug}-gallery-${index}`}
+                >
+                  <div className="aspect-[4/3]">
+                    <ContentImage
+                      alt={`${item.title} gallery ${index + 1}`}
+                      fallback="/images/marketing/web-platform.svg"
+                      image={image}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
           <div className="mt-14 grid gap-12 lg:grid-cols-[1fr_0.45fr]">
             <article>
               <h2 className="text-3xl font-bold">{detail("overview")}</h2>

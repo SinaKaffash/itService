@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CheckCircle2 } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { ContentImage } from "@/components/sections/content-image";
 import { ConversionCTA } from "@/components/sections/conversion-cta";
 import { PageHero } from "@/components/sections/page-hero";
 import { FeaturePanel, SectionShell } from "@/components/sections/public-design";
@@ -54,7 +55,16 @@ export default async function AboutPage({
               {t("storyBody")}
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="overflow-hidden rounded-2xl border bg-card shadow-[var(--shadow-soft)]">
+            <div className="aspect-[16/11]">
+              <ContentImage
+                alt=""
+                fallback="/images/marketing/team-studio.svg"
+                image="/images/marketing/team-studio.svg"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 lg:col-span-2">
             {(["projects", "uptime", "disciplines", "support"] as const).map(
               (stat) => (
                 <div className="rounded-2xl border bg-card/80 p-6 shadow-[0_1px_0_hsl(var(--foreground)/0.04)]" key={stat}>
@@ -78,10 +88,12 @@ export default async function AboutPage({
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {(["clarity", "craft", "ownership"] as const).map((value) => (
               <FeaturePanel key={value}>
-                <CheckCircle2
-                  aria-hidden="true"
-                  className="size-6 text-primary"
-                />
+                <div className="flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <CheckCircle2
+                    aria-hidden="true"
+                    className="size-7"
+                  />
+                </div>
                 <h3 className="mt-5 text-lg font-bold">
                   {t(`values.${value}.title`)}
                 </h3>
