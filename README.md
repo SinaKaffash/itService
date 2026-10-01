@@ -6,7 +6,7 @@ A bilingual IT services agency MVP built as a lean, production-ready modular mon
 
 - Public pages: home, about, services, portfolio, blog, contact, and smart request form.
 - Admin pages: login, dashboard, lead management, service management, portfolio management, blog management, and dynamic admin user management.
-- Internationalization with `next-intl`: Persian (`fa`, RTL) and English (`en`, LTR).
+- Persian-only, RTL marketing and administration experience with clean non-localized URLs.
 - PostgreSQL persistence through Prisma ORM.
 - Secure admin authentication using signed JWT session cookies plus database-backed session revocation.
 - SEO basics: metadata, `robots.txt`, sitemap, and structured data components.

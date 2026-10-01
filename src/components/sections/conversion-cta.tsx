@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/lib/messages";
 
 import { Container } from "@/components/layout/container";
 import { CTAButton } from "@/components/layout/cta-button";

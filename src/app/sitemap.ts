@@ -15,14 +15,19 @@ const staticPaths = [
   "/blog",
   "/contact",
   "/request",
+  "/projects",
+  "/status",
+  "/announcements",
+  "/tickets/new",
+  "/tickets/track",
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
   const [services, portfolio, posts] = await Promise.all([
-    listPublicServices("en"),
-    listPublicPortfolio("en"),
-    listPublicBlogPosts("en"),
+    listPublicServices("fa"),
+    listPublicPortfolio("fa"),
+    listPublicBlogPosts("fa"),
   ]);
   const dynamicPaths = [
     ...services.map((item) => `/services/${item.slug}`),
@@ -30,34 +35,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...posts.map((item) => `/blog/${item.slug}`),
   ];
 
-  return [...staticPaths, ...dynamicPaths].flatMap((path) => {
-    const faUrl = `${siteUrl}/fa${path}`;
-    const enUrl = `${siteUrl}/en${path}`;
+  return [...staticPaths, ...dynamicPaths].map((path) => {
+    const url = `${siteUrl}${path}`;
     const priority = path === "" ? 1 : path.split("/").length === 2 ? 0.8 : 0.7;
 
-    return [
-      {
-        url: faUrl,
-        changeFrequency: "weekly" as const,
-        priority,
-        alternates: {
-          languages: {
-            fa: faUrl,
-            en: enUrl,
-          },
-        },
-      },
-      {
-        url: enUrl,
-        changeFrequency: "weekly" as const,
-        priority,
-        alternates: {
-          languages: {
-            fa: faUrl,
-            en: enUrl,
-          },
-        },
-      },
-    ];
+    return { url, changeFrequency: "weekly" as const, priority };
   });
 }

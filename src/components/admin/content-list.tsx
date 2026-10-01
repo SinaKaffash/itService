@@ -1,11 +1,11 @@
 import { Pencil } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/lib/messages";
 
 import type {
   AdminContentRecord,
   ContentEntityType,
 } from "@/core/admin-content";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 
 import { ContentDeleteButton } from "./content-delete-button";
 import { Badge } from "@/components/ui/badge";
@@ -61,10 +61,7 @@ export async function ContentList({
           {records.map((record) => (
             <TableRow key={record.id}>
               <TableCell className="px-4 py-4">
-                <p className="font-medium">{record.translations.fa.title}</p>
-                <p className="mt-1 text-xs text-muted-foreground" dir="ltr">
-                  {record.translations.en.title}
-                </p>
+                <p className="font-medium">{record.title}</p>
               </TableCell>
               <TableCell
                 className="hidden px-4 font-mono text-xs md:table-cell"

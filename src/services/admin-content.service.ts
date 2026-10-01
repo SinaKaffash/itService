@@ -65,24 +65,14 @@ export class AdminContentService {
   }
 
   private toData(input: ValidatedAdminContent): SaveAdminContentData {
-    const slug = generateSlug(input.slug || input.titleEn);
+    const slug = generateSlug(input.slug || input.title);
     return {
       entity: input.entity,
       slug,
-      translations: {
-        fa: {
-          title: input.titleFa,
-          description: input.descriptionFa,
-          category: input.categoryFa || undefined,
-          content: input.contentFa || undefined,
-        },
-        en: {
-          title: input.titleEn,
-          description: input.descriptionEn,
-          category: input.categoryEn || undefined,
-          content: input.contentEn || undefined,
-        },
-      },
+      title: input.title,
+      description: input.description,
+      category: input.category,
+      content: input.content,
       icon: input.icon,
       coverImage: input.coverImage,
       gallery: input.gallery

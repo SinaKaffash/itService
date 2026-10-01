@@ -28,7 +28,6 @@ export class PrismaLeadRequestRepository implements LeadRequestWriter {
         serviceType: data.serviceType,
         budget: data.budget,
         description: data.description,
-        locale: data.locale,
         source: data.source,
         serviceId: service?.id,
       },

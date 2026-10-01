@@ -1,39 +1,43 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "@/lib/messages";
 import {
   BriefcaseBusiness,
   FileText,
   Home,
+  FolderKanban,
   Mail,
+  Activity,
+  Ticket,
   Settings2,
   type LucideIcon,
 } from "lucide-react";
 
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 
 import { CTAButton } from "./cta-button";
 import { Container } from "./container";
-import { LocaleSwitcher } from "./locale-switcher";
 import { MobileNav } from "./mobile-nav";
 
 const navIcons: Record<string, LucideIcon> = {
   "/about": Home,
   "/services": Settings2,
   "/portfolio": BriefcaseBusiness,
+  "/projects": FolderKanban,
   "/blog": FileText,
   "/contact": Mail,
+  "/status": Activity,
+  "/tickets/new": Ticket,
 };
 
 export async function Header() {
-  const [locale, t, localeT] = await Promise.all([
-    getLocale(),
-    getTranslations("Navigation"),
-    getTranslations("LocaleSwitcher"),
-  ]);
+  const t = await getTranslations("Navigation");
   const items = [
     { href: "/about", label: t("about") },
     { href: "/services", label: t("services") },
     { href: "/portfolio", label: t("portfolio") },
+    { href: "/projects", label: t("projects") },
     { href: "/blog", label: t("blog") },
+    { href: "/status", label: t("status") },
+    { href: "/tickets/new", label: t("tickets") },
     { href: "/contact", label: t("contact") },
   ];
 
@@ -69,17 +73,6 @@ export async function Header() {
         </nav>
 
         <div className="flex items-center gap-1.5">
-          <div className="hidden lg:block">
-            <LocaleSwitcher
-              labels={{
-                english: localeT("english"),
-                label: localeT("label"),
-                persian: localeT("persian"),
-                shortLabel: localeT("shortLabel"),
-              }}
-              locale={locale}
-            />
-          </div>
           <div className="hidden md:block">
             <CTAButton href="/request" size="sm">
               {t("start")}
@@ -91,15 +84,7 @@ export async function Header() {
             ctaHref="/request"
             ctaLabel={t("start")}
             description={t("menuDescription")}
-            items={items}
-            locale={locale}
-            localeSwitcherLabels={{
-              english: localeT("english"),
-              label: localeT("label"),
-              persian: localeT("persian"),
-              shortLabel: localeT("shortLabel"),
-            }}
-            menuLabel={t("menu")}
+            items={items}menuLabel={t("menu")}
             title={t("menuTitle")}
           />
         </div>

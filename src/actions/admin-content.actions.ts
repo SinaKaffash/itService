@@ -41,7 +41,6 @@ const adminContentErrorCodes = [
 const deleteSchema = z.object({
   entity: z.enum(contentEntityTypes),
   id: z.string().min(1),
-  locale: z.enum(["fa", "en"]),
 });
 
 const paths: Record<ContentEntityType, string> = {
@@ -57,21 +56,20 @@ const cacheTags: Record<ContentEntityType, string> = {
 };
 
 function revalidateContent(
-  locale: "fa" | "en",
   entity: ContentEntityType,
   slug?: string,
 ) {
   revalidateTag("public-content");
   revalidateTag(cacheTags[entity]);
-  revalidatePath(`/${locale}/admin/${paths[entity]}`);
-  revalidatePath(`/${locale}/${paths[entity]}`);
+  revalidatePath(`/admin/${paths[entity]}`);
+  revalidatePath(`/${paths[entity]}`);
   if (slug) {
-    revalidatePath(`/${locale}/${paths[entity]}/${slug}`);
+    revalidatePath(`/${paths[entity]}/${slug}`);
   }
 }
 
 export async function saveAdminContentAction(
-  input: AdminContentFormValues & { locale: "fa" | "en" },
+  input: AdminContentFormValues,
 ): Promise<AdminContentActionResult> {
   const context = createActionContext({
     action: "adminContent.save",
@@ -91,11 +89,11 @@ export async function saveAdminContentAction(
   try {
     if (parsed.data.id) {
       await adminContentService.update(parsed.data);
-      revalidateContent(input.locale, parsed.data.entity, parsed.data.slug);
+      revalidateContent(parsed.data.entity, parsed.data.slug);
       return { success: true, id: parsed.data.id };
     }
     const created = await adminContentService.create(parsed.data);
-    revalidateContent(input.locale, parsed.data.entity, parsed.data.slug);
+    revalidateContent(parsed.data.entity, parsed.data.slug);
     return { success: true, id: created.id };
   } catch (error) {
     return handleActionError(
@@ -110,7 +108,6 @@ export async function saveAdminContentAction(
 export async function deleteAdminContentAction(input: {
   entity: ContentEntityType;
   id: string;
-  locale: "fa" | "en";
 }): Promise<AdminContentActionResult> {
   const context = createActionContext({
     action: "adminContent.delete",
@@ -134,7 +131,6 @@ export async function deleteAdminContentAction(input: {
     );
     await adminContentService.delete(parsed.data.entity, parsed.data.id);
     revalidateContent(
-      parsed.data.locale,
       parsed.data.entity,
       existing?.slug,
     );

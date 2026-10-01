@@ -1,7 +1,4 @@
-const createNextIntlPlugin = require("next-intl/plugin");
 const os = require("node:os");
-
-const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 function getLocalDevOrigins() {
   const origins = new Set(["192.168.43.16"]);
@@ -39,6 +36,13 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
+      { source: "/fa", destination: "/", permanent: true },
+      { source: "/en", destination: "/", permanent: true },
+      {
+        source: "/:locale(fa|en)/:path+",
+        destination: "/:path+",
+        permanent: true,
+      },
       {
         source: "/favicon.ico",
         destination: "/favicon.svg",
@@ -66,4 +70,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withNextIntl(nextConfig);
+module.exports = nextConfig;

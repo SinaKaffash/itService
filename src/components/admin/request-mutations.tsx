@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { Archive, Loader2 } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "@/lib/messages";
 
 import {
   archiveRequestAction,
@@ -12,7 +12,7 @@ import {
   leadRequestStatuses,
   type LeadStatus,
 } from "@/core/admin-request";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "@/lib/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2, Loader2 } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "@/lib/messages";
 import { Controller, useForm } from "react-hook-form";
 
 import { submitLeadRequestAction } from "@/actions/lead-request.actions";

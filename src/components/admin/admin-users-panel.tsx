@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Power, UserPlus } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "@/lib/messages";
 import { useForm } from "react-hook-form";
 
 import {
@@ -16,7 +16,7 @@ import {
   adminUserSchema,
   type AdminUserFormValues,
 } from "@/features/admin/users.schema";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "@/lib/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";

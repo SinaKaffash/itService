@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, LockKeyhole } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/messages";
 import { useForm } from "react-hook-form";
 
 import { loginAdminAction } from "@/actions/admin-auth.actions";
@@ -11,7 +11,7 @@ import {
   adminLoginSchema,
   type AdminLoginValues,
 } from "@/features/auth/admin-login.schema";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "@/lib/navigation";
 
 import { SubmissionError } from "@/components/forms/submission-error";
 import { Button } from "@/components/ui/button";

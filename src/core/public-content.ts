@@ -1,11 +1,13 @@
 export type ServiceIcon = "globe" | "mobile" | "server" | "dashboard";
-
 export type PublicContentLocale = "fa" | "en";
 
 export type PublicContentRow = {
   id: string;
   slug: string;
-  translations: unknown;
+  title: string;
+  description: string;
+  content: string;
+  category?: string;
   coverImage?: string | null;
   gallery?: unknown;
   publishedAt?: Date | null;

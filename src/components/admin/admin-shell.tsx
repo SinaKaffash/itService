@@ -1,6 +1,9 @@
 import {
   BookOpenText,
+  Bell,
   BriefcaseBusiness,
+  FolderKanban,
+  Activity,
   LayoutDashboard,
   LogOut,
   MessagesSquare,
@@ -10,7 +13,7 @@ import {
 
 import { logoutAdminAction } from "@/actions/admin-auth.actions";
 import type { AdminIdentity } from "@/core/admin-auth";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 
 import { AdminMobileNav } from "@/components/admin/admin-mobile-nav";
 import { Button } from "@/components/ui/button";
@@ -33,6 +36,10 @@ export function AdminShell({
     portfolio: string;
     blog: string;
     users: string;
+    projects: string;
+    itServices: string;
+    announcements: string;
+    tickets: string;
     signedInAs: string;
     logout: string;
   };
@@ -63,6 +70,10 @@ export function AdminShell({
                   requests: labels.requests,
                   services: labels.services,
                   users: labels.users,
+                  projects: labels.projects,
+                  itServices: labels.itServices,
+                  announcements: labels.announcements,
+                  tickets: labels.tickets,
                 }}
                 locale={locale}
                 signedInAs={labels.signedInAs}
@@ -93,6 +104,10 @@ export function AdminShell({
                   {labels.requests}
                 </Link>
               </Button>
+              <Button asChild variant="ghost"><Link href="/admin/tickets"><MessagesSquare aria-hidden="true" />{labels.tickets}</Link></Button>
+              <Button asChild variant="ghost"><Link href="/admin/projects"><FolderKanban aria-hidden="true" />{labels.projects}</Link></Button>
+              <Button asChild variant="ghost"><Link href="/admin/it-services"><Activity aria-hidden="true" />{labels.itServices}</Link></Button>
+              <Button asChild variant="ghost"><Link href="/admin/announcements"><Bell aria-hidden="true" />{labels.announcements}</Link></Button>
               <Button asChild variant="ghost">
                 <Link href="/admin/services">
                   <Wrench aria-hidden="true" />

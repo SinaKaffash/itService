@@ -1,4 +1,5 @@
 export type CreateLeadRequestData = {
+  locale?: "fa" | "en";
   fullName: string;
   phone: string;
   email?: string;
@@ -6,7 +7,6 @@ export type CreateLeadRequestData = {
   serviceType: string;
   budget: string;
   description: string;
-  locale: "fa" | "en";
   source: string;
 };
 

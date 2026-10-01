@@ -3,32 +3,21 @@ import { unstable_cache } from "next/cache";
 
 import type {
   PublicBlogPost,
-  PublicContentLocale,
   PublicContentRepository,
   PublicContentRow,
+  PublicContentLocale,
   PublicPortfolio,
   PublicService,
   ServiceIcon,
 } from "@/core/public-content";
 import { PrismaPublicContentRepository } from "@/repositories/prisma/public-content.repository";
 
-type Translation = {
-  title?: string;
-  description?: string;
-  excerpt?: string;
-  content?: string;
-  category?: string;
-};
-
-function localized(row: PublicContentRow, locale: PublicContentLocale) {
-  const translations = row.translations as Partial<
-    Record<PublicContentLocale, Translation>
-  >;
-  const value = translations[locale] ?? translations.en ?? translations.fa ?? {};
+function localized(row: PublicContentRow) {
+  const value = row;
   return {
     title: value.title?.trim() ?? "",
     description:
-      value.description?.trim() ?? value.excerpt?.trim() ?? "",
+      value.description?.trim() ?? "",
     content: value.content?.trim() ?? "",
     category: value.category?.trim() ?? "",
   };
@@ -62,10 +51,10 @@ function galleryUrls(value: unknown) {
 export class PublicContentService {
   constructor(private readonly repository: PublicContentRepository) {}
 
-  async listServices(locale: PublicContentLocale) {
+  async listServices() {
     const rows = await this.repository.listServices();
     return rows.map((row): PublicService => {
-      const value = localized(row, locale);
+      const value = localized(row);
       return {
         id: row.id,
         slug: row.slug,
@@ -77,10 +66,11 @@ export class PublicContentService {
     });
   }
 
-  async getService(locale: PublicContentLocale, slug: string) {
+  async getService(slug: string, legacySlug?: string) {
+    slug = legacySlug ?? slug;
     const row = await this.repository.findServiceBySlug(slug);
     if (!row) return null;
-    const value = localized(row, locale);
+    const value = localized(row);
     return {
       id: row.id,
       slug: row.slug,
@@ -91,10 +81,10 @@ export class PublicContentService {
     } satisfies PublicService;
   }
 
-  async listPortfolio(locale: PublicContentLocale) {
+  async listPortfolio() {
     const rows = await this.repository.listPortfolio();
     return rows.map((row, index): PublicPortfolio => {
-      const value = localized(row, locale);
+      const value = localized(row);
       return {
         id: row.id,
         slug: row.slug,
@@ -110,10 +100,11 @@ export class PublicContentService {
     });
   }
 
-  async getPortfolioItem(locale: PublicContentLocale, slug: string) {
+  async getPortfolioItem(slug: string, legacySlug?: string) {
+    slug = legacySlug ?? slug;
     const row = await this.repository.findPortfolioBySlug(slug);
     if (!row) return null;
-    const value = localized(row, locale);
+    const value = localized(row);
     return {
       id: row.id,
       slug: row.slug,
@@ -128,21 +119,21 @@ export class PublicContentService {
     } satisfies PublicPortfolio;
   }
 
-  async listBlogPosts(locale: PublicContentLocale) {
+  async listBlogPosts() {
     const rows = await this.repository.listBlogPosts();
-    return rows.map((row) => this.blogPost(row, locale));
+    return rows.map((row) => this.blogPost(row));
   }
 
-  async getBlogPost(locale: PublicContentLocale, slug: string) {
+  async getBlogPost(slug: string, legacySlug?: string) {
+    slug = legacySlug ?? slug;
     const row = await this.repository.findBlogPostBySlug(slug);
-    return row ? this.blogPost(row, locale) : null;
+    return row ? this.blogPost(row) : null;
   }
 
   private blogPost(
     row: PublicContentRow,
-    locale: PublicContentLocale,
   ): PublicBlogPost {
-    const value = localized(row, locale);
+    const value = localized(row);
     const content = value.content || value.description;
     const wordCount = content.split(/\s+/).filter(Boolean).length;
     return {
@@ -165,48 +156,42 @@ export const publicContentService = new PublicContentService(
 
 export const listPublicServices = cache(
   unstable_cache(
-    (locale: PublicContentLocale) =>
-      publicContentService.listServices(locale),
+    (_locale?: PublicContentLocale) => publicContentService.listServices(),
     ["public-services"],
     { revalidate: 3600, tags: ["public-content", "public-services"] },
   ),
 );
 export const getPublicService = cache(
   unstable_cache(
-    (locale: PublicContentLocale, slug: string) =>
-      publicContentService.getService(locale, slug),
+    (localeOrSlug: string, slug?: string) => publicContentService.getService(slug ?? localeOrSlug),
     ["public-service"],
     { revalidate: 3600, tags: ["public-content", "public-services"] },
   ),
 );
 export const listPublicPortfolio = cache(
   unstable_cache(
-    (locale: PublicContentLocale) =>
-      publicContentService.listPortfolio(locale),
+    (_locale?: PublicContentLocale) => publicContentService.listPortfolio(),
     ["public-portfolio"],
     { revalidate: 3600, tags: ["public-content", "public-portfolio"] },
   ),
 );
 export const getPublicPortfolioItem = cache(
   unstable_cache(
-    (locale: PublicContentLocale, slug: string) =>
-      publicContentService.getPortfolioItem(locale, slug),
+    (localeOrSlug: string, slug?: string) => publicContentService.getPortfolioItem(slug ?? localeOrSlug),
     ["public-portfolio-item"],
     { revalidate: 3600, tags: ["public-content", "public-portfolio"] },
   ),
 );
 export const listPublicBlogPosts = cache(
   unstable_cache(
-    (locale: PublicContentLocale) =>
-      publicContentService.listBlogPosts(locale),
+    (_locale?: PublicContentLocale) => publicContentService.listBlogPosts(),
     ["public-blog-posts"],
     { revalidate: 3600, tags: ["public-content", "public-blog"] },
   ),
 );
 export const getPublicBlogPost = cache(
   unstable_cache(
-    (locale: PublicContentLocale, slug: string) =>
-      publicContentService.getBlogPost(locale, slug),
+    (localeOrSlug: string, slug?: string) => publicContentService.getBlogPost(slug ?? localeOrSlug),
     ["public-blog-post"],
     { revalidate: 3600, tags: ["public-content", "public-blog"] },
   ),

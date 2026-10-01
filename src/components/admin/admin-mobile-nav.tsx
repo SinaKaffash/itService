@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpenText,
+  Bell,
   BriefcaseBusiness,
+  FolderKanban,
+  Activity,
   LayoutDashboard,
   Menu,
   MessagesSquare,
@@ -14,7 +17,7 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -32,6 +35,10 @@ type AdminMobileNavProps = {
     requests: string;
     services: string;
     users: string;
+    projects?: string;
+    itServices?: string;
+    announcements?: string;
+    tickets?: string;
   };
   locale: string;
   signedInAs: string;
@@ -71,6 +78,10 @@ export function AdminMobileNav({
       icon: MessagesSquare,
       label: labels.requests,
     },
+    { href: "/admin/tickets", icon: MessagesSquare, label: labels.tickets ?? "تیکت‌ها" },
+    { href: "/admin/projects", icon: FolderKanban, label: labels.projects ?? "پروژه‌ها" },
+    { href: "/admin/it-services", icon: Activity, label: labels.itServices ?? "وضعیت IT" },
+    { href: "/admin/announcements", icon: Bell, label: labels.announcements ?? "اطلاعیه‌ها" },
     {
       href: "/admin/services",
       icon: Wrench,

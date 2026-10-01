@@ -19,7 +19,6 @@ export type AdminLeadRequest = {
   serviceType: string;
   budget: string | null;
   description: string;
-  locale: string;
   status: LeadStatus;
   createdAt: Date;
   updatedAt: Date;

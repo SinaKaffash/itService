@@ -2,11 +2,11 @@
 
 import { useState, useTransition } from "react";
 import { Loader2, Trash2 } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "@/lib/messages";
 
 import { deleteAdminContentAction } from "@/actions/admin-content.actions";
 import type { ContentEntityType } from "@/core/admin-content";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter } from "@/lib/navigation";
 
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +17,6 @@ export function ContentDeleteButton({
   entity: ContentEntityType;
   id: string;
 }) {
-  const locale = useLocale() as "fa" | "en";
   const router = useRouter();
   const t = useTranslations("AdminContent");
   const [isPending, startTransition] = useTransition();
@@ -35,7 +34,6 @@ export function ContentDeleteButton({
             const result = await deleteAdminContentAction({
               entity,
               id,
-              locale,
             });
             if (result.success) {
               router.refresh();

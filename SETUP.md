@@ -248,7 +248,7 @@ Seed initial data and the super admin:
 npm run db:seed
 ```
 
-Important: `npm run db:seed` creates or updates the first `SUPER_ADMIN`, hashes the password with bcrypt, and revokes existing sessions for that admin. After the first login, manage additional admin access dynamically from `/fa/admin/users` or `/en/admin/users`; do not use seed data for day-to-day account creation.
+Important: `npm run db:seed` creates or updates the first `SUPER_ADMIN`, hashes the password with bcrypt, and revokes existing sessions for that admin. After the first login, manage additional admin access dynamically from `/admin/users`; do not use seed data for day-to-day account creation.
 
 To inspect the database:
 
@@ -722,3 +722,13 @@ NEXT_PUBLIC_APP_URL
 ```
 
 If all users are redirected from admin pages, confirm `ADMIN_JWT_SECRET` is set and unchanged since login. Changing the JWT secret invalidates existing cookies.
+
+## Ticket attachment storage
+
+Ticket attachments are private files; they are never placed in `public/` or exposed by a static URL. Set `UPLOADS_DIR` to an absolute directory owned by the application user, for example:
+
+```bash
+sudo install -d -o deploy -g deploy -m 750 /var/lib/it-services/uploads
+```
+
+Then set `UPLOADS_DIR=/var/lib/it-services/uploads` in the production environment and include that directory in the same encrypted, off-server backup schedule as PostgreSQL. The application allows up to three PDF, PNG, JPEG, DOCX, XLSX, or ZIP files per ticket, with a maximum size of 10 MB per file.

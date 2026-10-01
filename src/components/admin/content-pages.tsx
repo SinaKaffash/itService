@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/lib/messages";
 
 import type { ContentEntityType } from "@/core/admin-content";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 import { adminContentService } from "@/services/admin-content.service";
 
 import { ContentEditorForm } from "./content-editor-form";

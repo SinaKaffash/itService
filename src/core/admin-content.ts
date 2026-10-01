@@ -1,7 +1,7 @@
 export const contentEntityTypes = ["service", "portfolio", "blog"] as const;
 export type ContentEntityType = (typeof contentEntityTypes)[number];
 
-export type LocalizedContentValue = {
+export type PersianContentValue = {
   title: string;
   description: string;
   category?: string;
@@ -12,10 +12,10 @@ export type AdminContentRecord = {
   id: string;
   entity: ContentEntityType;
   slug: string;
-  translations: {
-    fa: LocalizedContentValue;
-    en: LocalizedContentValue;
-  };
+  title: string;
+  description: string;
+  category: string;
+  content: string;
   published: boolean;
   isActive: boolean;
   sortOrder: number;

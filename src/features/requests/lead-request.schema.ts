@@ -37,7 +37,7 @@ export const leadRequestSchema = z.object({
     .trim()
     .min(20, { message: "description" })
     .max(2000, { message: "description" }),
-  locale: z.enum(["fa", "en"], { error: "locale" }),
+  locale: z.enum(["fa", "en"]).optional(),
   honeypot: z.string().max(200),
 });
 

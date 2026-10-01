@@ -1,16 +1,11 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "@/lib/messages";
 
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 
 import { Container } from "./container";
-import { LocaleSwitcher } from "./locale-switcher";
 
 export async function Footer() {
-  const [locale, t, localeT] = await Promise.all([
-    getLocale(),
-    getTranslations("Footer"),
-    getTranslations("LocaleSwitcher"),
-  ]);
+  const t = await getTranslations("Footer");
 
   const columns = [
     {
@@ -24,6 +19,7 @@ export async function Footer() {
     {
       title: t("companyTitle"),
       links: [
+        { href: "/projects", label: t("projects") },
         { href: "/portfolio", label: t("portfolio") },
         { href: "/blog", label: t("blog") },
         { href: "/contact", label: t("contact") },
@@ -65,15 +61,6 @@ export async function Footer() {
       </Container>
       <Container className="flex flex-col gap-4 border-t py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
         <p>{t("copyright")}</p>
-        <LocaleSwitcher
-          labels={{
-            english: localeT("english"),
-            label: localeT("label"),
-            persian: localeT("persian"),
-            shortLabel: localeT("shortLabel"),
-          }}
-          locale={locale}
-        />
       </Container>
     </footer>
   );

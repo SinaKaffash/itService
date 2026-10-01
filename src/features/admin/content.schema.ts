@@ -44,14 +44,10 @@ export const adminContentSchema = z
         message: "slug",
       })
       .or(z.literal("")),
-    titleFa: z.string().trim().min(2, { message: "required" }).max(200),
-    titleEn: z.string().trim().min(2, { message: "required" }).max(200),
-    descriptionFa: text,
-    descriptionEn: text,
-    categoryFa: z.string().trim().max(120),
-    categoryEn: z.string().trim().max(120),
-    contentFa: z.string().trim().max(20000),
-    contentEn: z.string().trim().max(20000),
+    title: z.string().trim().min(2, { message: "required" }).max(200),
+    description: text,
+    category: z.string().trim().max(120),
+    content: z.string().trim().max(20000),
     icon: z.string().trim().max(80),
     coverImage: imageUrl,
     gallery: imageUrlList,
@@ -63,23 +59,23 @@ export const adminContentSchema = z
   .superRefine((value, context) => {
     if (
       value.entity === "portfolio" &&
-      (!value.categoryFa || !value.categoryEn)
+      !value.category
     ) {
       context.addIssue({
         code: "custom",
         message: "required",
-        path: ["categoryFa"],
+        path: ["category"],
       });
     }
 
     if (
       value.entity === "blog" &&
-      (value.contentFa.length < 20 || value.contentEn.length < 20)
+      value.content.length < 20
     ) {
       context.addIssue({
         code: "custom",
         message: "content",
-        path: ["contentFa"],
+        path: ["content"],
       });
     }
   });

@@ -1,4 +1,4 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/lib/messages";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { AdminLeadRequest } from "@/core/admin-request";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 
 import { RequestStatusBadge } from "./request-status-badge";
 

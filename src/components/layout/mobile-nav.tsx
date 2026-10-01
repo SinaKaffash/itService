@@ -5,6 +5,7 @@ import {
   ArrowRight,
   BriefcaseBusiness,
   FileText,
+  FolderKanban,
   Home,
   Mail,
   Menu,
@@ -15,10 +16,9 @@ import {
 } from "lucide-react";
 import { usePathname } from "next/navigation";
 
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
-import { LocaleSwitcher } from "./locale-switcher";
 import { Button } from "@/components/ui/button";
 
 type MobileNavProps = {
@@ -28,8 +28,8 @@ type MobileNavProps = {
   ctaLabel?: string;
   description: string;
   items: Array<{ href: string; label: string }>;
-  locale: string;
-  localeSwitcherLabels: {
+  locale?: string;
+  localeSwitcherLabels?: {
     english: string;
     label: string;
     persian: string;
@@ -43,6 +43,7 @@ const navIcons: Record<string, LucideIcon> = {
   "/about": Home,
   "/services": Settings2,
   "/portfolio": BriefcaseBusiness,
+  "/projects": FolderKanban,
   "/blog": FileText,
   "/contact": Mail,
 };
@@ -73,7 +74,7 @@ export function MobileNav({
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const currentPath = normalizedPath(pathname);
-  const isRtl = locale === "fa";
+  const isRtl = true;
 
   useEffect(() => {
     if (!open) {
@@ -219,16 +220,6 @@ export function MobileNav({
                   </Link>
                 </Button>
               ) : null}
-              <div className="flex items-center justify-between gap-3 rounded-lg border bg-muted/40 px-3 py-2">
-                <span className="text-xs font-medium text-muted-foreground">
-                  {localeSwitcherLabels.label}
-                </span>
-                <LocaleSwitcher
-                  labels={localeSwitcherLabels}
-                  locale={locale}
-                  side="top"
-                />
-              </div>
             </div>
           </div>
         </div>

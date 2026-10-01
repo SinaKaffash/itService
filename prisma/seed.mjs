@@ -241,6 +241,26 @@ const blogPosts = [
   },
 ];
 
+for (const item of services) {
+  Object.assign(item, item.translations.fa);
+  item.content = item.content ?? "";
+  delete item.translations;
+}
+
+for (const item of portfolio) {
+  Object.assign(item, item.translations.fa);
+  item.content = item.content ?? "";
+  delete item.translations;
+}
+
+for (const item of blogPosts) {
+  Object.assign(item, item.translations.fa);
+  item.description = item.description ?? item.excerpt ?? "";
+  item.category = item.category ?? "";
+  delete item.excerpt;
+  delete item.translations;
+}
+
 async function main() {
   const {
     ADMIN_EMAIL: adminEmail,

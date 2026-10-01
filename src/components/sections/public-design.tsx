@@ -18,7 +18,7 @@ import type {
   PublicPortfolio,
   ServiceIcon,
 } from "@/core/public-content";
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 type SectionShellProps = {

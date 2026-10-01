@@ -1,33 +1,10 @@
-import type { Prisma } from "@prisma/client";
-
 import type {
   AdminContentRecord,
   AdminContentRepository,
   ContentEntityType,
-  LocalizedContentValue,
   SaveAdminContentData,
 } from "@/core/admin-content";
 import { prisma } from "@/lib/prisma";
-
-function translations(value: Prisma.JsonValue) {
-  const data = value as {
-    fa?: LocalizedContentValue & { excerpt?: string };
-    en?: LocalizedContentValue & { excerpt?: string };
-  };
-  const empty = { title: "", description: "" };
-  return {
-    fa: {
-      ...empty,
-      ...data.fa,
-      description: data.fa?.description ?? data.fa?.excerpt ?? "",
-    },
-    en: {
-      ...empty,
-      ...data.en,
-      description: data.en?.description ?? data.en?.excerpt ?? "",
-    },
-  };
-}
 
 export class PrismaAdminContentRepository
   implements AdminContentRepository
@@ -82,7 +59,7 @@ export class PrismaAdminContentRepository
       return prisma.service.create({
         data: {
           slug: data.slug,
-          translations: data.translations,
+          title: data.title, description: data.description, content: data.content,
           icon: data.icon || null,
           sortOrder: data.sortOrder,
           published: data.published,
@@ -95,7 +72,7 @@ export class PrismaAdminContentRepository
       return prisma.portfolio.create({
         data: {
           slug: data.slug,
-          translations: data.translations,
+          title: data.title, description: data.description, content: data.content,
           coverImage: data.coverImage || null,
           gallery: data.gallery,
           technologies: data.technologies,
@@ -109,7 +86,7 @@ export class PrismaAdminContentRepository
     return prisma.blogPost.create({
       data: {
         slug: data.slug,
-        translations: data.translations,
+        title: data.title, description: data.description, category: data.category, content: data.content,
         coverImage: data.coverImage || null,
         published: data.published,
         publishedAt: data.published ? new Date() : null,
@@ -125,7 +102,7 @@ export class PrismaAdminContentRepository
         where: { id },
         data: {
           slug: data.slug,
-          translations: data.translations,
+          title: data.title, description: data.description, content: data.content,
           icon: data.icon || null,
           sortOrder: data.sortOrder,
           published: data.published,
@@ -139,7 +116,7 @@ export class PrismaAdminContentRepository
         where: { id },
         data: {
           slug: data.slug,
-          translations: data.translations,
+          title: data.title, description: data.description, category: data.category, content: data.content,
           coverImage: data.coverImage || null,
           gallery: data.gallery,
           technologies: data.technologies,
@@ -159,7 +136,7 @@ export class PrismaAdminContentRepository
       where: { id },
       data: {
         slug: data.slug,
-        translations: data.translations,
+        title: data.title, description: data.description, category: data.category, content: data.content,
         coverImage: data.coverImage || null,
         published: data.published,
         publishedAt: data.published
@@ -188,7 +165,7 @@ export class PrismaAdminContentRepository
       id: row.id,
       entity: "service",
       slug: row.slug,
-      translations: translations(row.translations),
+      title: row.title, description: row.description, category: "", content: row.content,
       published: row.published,
       isActive: row.isActive,
       sortOrder: row.sortOrder,
@@ -208,7 +185,7 @@ export class PrismaAdminContentRepository
       id: row.id,
       entity: "portfolio",
       slug: row.slug,
-      translations: translations(row.translations),
+      title: row.title, description: row.description, category: "", content: row.content,
       published: row.published,
       isActive: row.isActive,
       sortOrder: row.sortOrder,
@@ -230,7 +207,7 @@ export class PrismaAdminContentRepository
       id: row.id,
       entity: "blog",
       slug: row.slug,
-      translations: translations(row.translations),
+      title: row.title, description: row.description, category: "", content: row.content,
       published: row.published,
       isActive: row.isActive,
       sortOrder: 0,
@@ -243,3 +220,4 @@ export class PrismaAdminContentRepository
     };
   }
 }
+import type { Prisma } from "@prisma/client";

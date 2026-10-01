@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import { ArrowUpLeft } from "lucide-react";
 
-import { Link } from "@/i18n/navigation";
+import { Link } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
